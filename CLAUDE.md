@@ -1,7 +1,8 @@
 # Project conventions (read first in every session)
 
-This repository is the design and, later, the implementation of a product intelligence platform focused on
-the sleep, mattress, and bedding niche. Design documents live in `docs/`. Nothing has been built yet as of
+This repository is the design and, later, the implementation of RateMyBed (ratemybed.com): a review platform
+for beds and sleep products where verified owner ratings are the center, with analytics, comparisons, and
+rankings built on top. See `docs/11-ratemybed-platform-decision.md`. Design documents live in `docs/`. Nothing has been built yet as of
 2026-09-29; Phase 0 starts only with the operator's explicit approval.
 
 ## Build principle: earn trust, add real value
@@ -10,20 +11,24 @@ Every workflow, page template, schema decision, and prompt must serve one goal: 
 Google can trust it and so that visitors get value they cannot get elsewhere. The value lives in five things,
 and anything that does not strengthen one of them is suspect:
 
-1. Comparisons: model-versus-model and brand-versus-brand with real deltas (specs, warranty terms, price
+1. Native reviews: verified owner reviews collected on this site, always public and indexable, published
+   regardless of rating, with the incentive disclosed on each review. Submitting one review unlocks the
+   analytics layer; the reviews themselves are never gated.
+2. Native scoring: our own versioned rubric blending owner ratings (Bayesian-shrunk, minimum counts) with
+   objective spec and warranty data; deterministic where objective, evidence-floored where subjective.
+3. Comparisons: model-versus-model and brand-versus-brand with real deltas (specs, warranty terms, price
    history, owner data), not reshuffled listicles.
-2. Review summaries: paraphrased, criterion-level summaries grounded in stored observations, each with
-   visible, clickable sources.
-3. Suggestions: personalized rankings and the quiz, driven by the rubric and the user's stated needs, with
+4. Review summaries: paraphrased, criterion-level sentiment summaries grounded in stored reviews and
+   observations, each with visible sources and counts.
+5. Suggestions: personalized rankings and the quiz, driven by the rubric and the user's stated needs, with
    the reasoning shown.
-4. Native reviews: verified owner reviews collected on this site, published regardless of rating, with the
-   incentive disclosed on each review.
-5. Native scoring: our own versioned rubric, deterministic where the data is objective, evidence-floored
-   where it is subjective, reproducible from the database.
 
 Rules that follow from the principle:
-- A page is indexable only when it passes the completeness gate (spec coverage, evidence floor, source
-  count, unique-content ratio). Everything else is served with noindex.
+- A model page is indexable only when it holds at least five verified entries (site reviews or consented
+  owner reports from surveys) plus spec and warranty data, and passes the completeness gate. Everything
+  else is served with noindex. Seed with consented survey data before indexing; never index empty pages.
+- Run it as a review platform: verification, moderation, a published review policy, brand responses,
+  disputes, no sentiment-conditioned incentives, no suppression of negatives, DMCA agent registered.
 - Every generated sentence must trace to a stored fact or observation with provenance. No claim without a
   source row.
 - Never store or republish third-party review text; store paraphrased observations plus URL pointers.
