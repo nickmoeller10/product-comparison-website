@@ -1,7 +1,8 @@
 # Sleep, Mattress, and Bedding: Niche Plan
 
-Status: discussion document, 2026-09-29. Program rates and volumes marked [verify] are from the batch
-research; the sub-category research appendix (`research/sleep-subcategories.md`) holds the sources.
+Status: discussion document, 2026-09-29. Program rates, volumes, and standards come from
+`research/sleep-subcategories.md` and `research/niche-batches/batch-e-home-health-nonphysical.md`. Volumes are
+estimates, plus or minus 40 percent. Rates are base tiers and change often.
 
 ## 1. Product taxonomy (what we can rank)
 
@@ -162,7 +163,28 @@ Clawback management: commissions on mattresses are held through trials. Cash-flo
 - Total cost of ownership: price, expected life from durability data, warranty value.
 - Size-fit tools: sheet pocket depth versus mattress height; frame compatibility.
 
-## 8. Launch order within the niche
+## 8. Sub-category economics (from the research appendix)
+
+| Sub-category | Best program | $/sale (est) | Head-term volume (est/mo) | Objective data available |
+|---|---|---|---|---|
+| Mattresses | DreamCloud $150 flat; Purple to $150; Nolah $105-160; Leesa $75; Saatva 3%; Helix 6-12% | $75-150 | 250k plus 200k of modifiers | Warranty terms, certifications, fiberglass, price history; density rarely |
+| Toppers | Saatva 3%; Puffy ~20%?; Tempur 2% | $10-40 | 108k | CertiPUR-US, OEKO-TEX; density rarely |
+| Pillows | Coop 10%; Purple to 15%; Brooklinen 5-10%; Layla 6% | $7-20 | 183k | OEKO-TEX, CertiPUR-US, GOTS |
+| Sheets and duvet covers | Parachute ~15%; Boll & Branch 10%; Cozy Earth 6-25%; Bedsure 10% | $10-40 | 123k | Thread count, GSM, weave, OEKO-TEX, GOTS, Supima, Cotton Egypt, Fair Trade |
+| Comforters and weighted blankets | Bearaby 9%; Buffy 8%; Boll & Branch 10% | $12-35 | 108k | Fill power, fill weight, RDS, DOWNPASS |
+| Protectors | Saatva 3%; Purple; Amazon 3% | $2-7 | 66k | OEKO-TEX, 16 CFR 1632 |
+| Bases and frames | Zinus 5%; Saatva 3%; Thuma 2%; Tempur 2% | $10-60 | 95k | UL/ETL for motorized bases |
+| Bunk, loft, kids beds | Wayfair 7% (7d); Pottery Barn Kids 5-14%; Max & Lily 4% | $15-60 | 47k | ASTM F1427, 16 CFR 1213/1513/1217 |
+| Cribs and crib mattresses | Naturepedic 6%; Newton 5% | $12-25 | 78k | 16 CFR 1241 firmness standard, GREENGUARD Gold, GOTS/GOLS |
+| Sleep tech | Eight Sleep to $180; BedJet 8%; Withings 10-15%; Sleep Number 2-3% | $10-180 | 65k | None public |
+| Sofa beds, air, RV | Wayfair 7%; Brooklyn Bedding 5% | $5-70 | 86k | 16 CFR 1632/1633 |
+| Accessories | Amazon 3%; Coop 10% | $1-10 | 95k | OEKO-TEX |
+| Pet beds | Furhaven 10%; Chewy 4% | $5-30 | 68k | CertiPUR-US |
+
+Summed head-term volume across the niche is roughly 1.4 million searches a month before brand terms, which
+are larger still ("purple mattress" and "casper mattress" each run in the hundreds of thousands).
+
+## 9. Launch order within the niche
 
 1. Mattresses: top 40 models across the major online brands; brand hubs; 20 comparison pages; sleeper
    and need modifiers only where evidence supports them.
