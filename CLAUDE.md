@@ -29,8 +29,13 @@ Rules that follow from the principle:
   canonical, warranty years and trial nights parsed, a price point within 30 days), (b) an owned signal
   exists (30 or more days of first-party price history, or 3 or more published native reviews), (c) evidence
   exists (20 or more live observations across 2 or more sources, or 5 or more published native reviews), and
-  (d) the unique-content ratio is 0.5 or higher. Everything else is served with noindex. Never index empty
-  pages. Expand the index in evidence-driven batches; there is no URL-per-month target.
+  (d) the unique-content ratio is 0.5 or higher, and (e) the page has not been demoted (`pages.demoted_at`
+  is null). The counts above are category defaults (`min_price_history_days`, `min_observations`,
+  `min_sources`, `min_native_reviews`, `min_unique_ratio`); other page types have their own branches in
+  section 8.2. Everything else is served with noindex. Never index empty pages. Expand the index in
+  evidence-driven batches; there is no URL-per-month target.
+- Every outbound merchant link goes through `/go/[offer_id]`, which records the click and applies the
+  disclosure and `rel="sponsored"` rules; never link a merchant directly from a page template.
 - Gated content is never server-rendered into cached pages: indexable routes render the visitor view only,
   gated fragments are client-fetched through authenticated route handlers, and CI fails on any gated marker
   in an anonymous fetch.

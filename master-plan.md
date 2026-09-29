@@ -1,7 +1,8 @@
 # RateMyBed Master Plan
 
-Version 1.1, 2026-09-29. Status: FOR OPERATOR REVIEW after two independent review passes (architecture and
-feasibility; legal, SEO, trust, and revenue) whose 65 findings are incorporated. This document is the single
+Version 1.2, 2026-09-29. Status: FINAL DRAFT FOR OPERATOR REVIEW after two review cycles: cycle one was two
+independent passes (architecture and feasibility; legal, SEO, trust, and revenue) with 65 findings; cycle two
+verified the fixes and added 20 findings. All are incorporated (Appendix C). This document is the single
 source of truth for scope, architecture, and build order. Where it conflicts with an earlier document in
 `docs/`, this document wins. Research evidence lives in `docs/research/`. Conventions every build session
 must follow live in `CLAUDE.md` and are kept consistent with this plan.
@@ -102,7 +103,7 @@ conservative per the review (section 18).
 |---|---|---|---|---|
 | 1 | Affiliate commissions (primary) | Brand programs (DreamCloud $150 flat, Purple to $150, Nolah $105 to $160, Leesa $75 paid after 125 days, Saatva 3%, Helix 6 to 12%, Parachute ~15%, Cozy Earth to 25%, Eight Sleep to $180), retailers (Wayfair 7%, Mattress Firm 3 to 4%), sub-affiliate networks (Sovrn, FlexOffers) applied for at skeleton launch, approval-gated | Skeleton site with policies live | Commissions reverse on returns inside 100 to 365 night trials; model 25 to 30 percent reversal and a 120 to 365 day lag; sub-affiliate networks keep about 25 percent; amazon.com links are excluded from any network auto-conversion while Amazon collection runs |
 | 2 | Network-issued promo codes | Codes stored with authorization, validity window, and exclusivity flag; only network-issued codes displayed | With stream 1 | Leaked or unauthorized codes forfeit commissions; W18 validates |
-| 3 | Premium membership | Monthly and annual; the premium-only assets are the full durability dataset by ownership year, saved personalized rankings, unlimited alerts, reports, and the weekly digest; seven-day trial with card; auto-renewal disclosure and one-click cancel per state auto-renewal laws | 10k organic sessions per month and 300 native reviews | $6 to $9 per month, $49 to $69 per year; budget 30 to 100 members in year one |
+| 3 | Premium membership | Monthly and annual; the premium-only assets are the full durability dataset by ownership year, saved personalized rankings, unlimited comparisons and alerts, reports, and the member digest; seven-day trial with card; auto-renewal disclosure and one-click cancel per state auto-renewal laws | 10k organic sessions per month and 300 native reviews (expected late in year one at the KPI pace) | $6 to $9 per month, $49 to $69 per year; budget 30 to 100 members by the end of year two |
 | 4 | One-time reports | Per-model or per-category report with price history and durability data | With premium | $4 to $12 |
 | 5 | Brand accounts | Claimed pages, moderated responses, aggregated analytics for own products (minimum cell size 5); badges are free to any brand that earned a rank, with an optional nofollow link and no anchor requirement; payment buys analytics only | 50 or more native reviews for the brand's products | $49 to $199 per month; no effect on scoring or ranking |
 | 6 | Brand analytics and data licensing | Aggregated complaint frequency, return reasons, segment satisfaction, competitor benchmarks; aggregated licensing covered by the user content license and privacy notice; minimum cell size 5; deletion cascades to exports by contract | 5,000 native reviews | Quarterly reports or API |
@@ -121,16 +122,17 @@ path.
 
 | Role | Who | Can do |
 |---|---|---|
-| Visitor | Anyone | Read everything public; compare up to three products; quiz with basic results; price alerts on up to three quiz picks by confirmed email |
-| Reviewer (unlocked) | Visitor whose review was published | Analytics layer for 12 months from publication, renewed by a published follow-up; saved items; alerts on five products |
-| Member (Premium) | Paying subscriber | Reviewer capabilities plus the full durability dataset, saved personalized rankings, unlimited comparisons and alerts, full price history, weekly digest, reports within limits |
+| Visitor | Anyone | Read everything public; compare up to three products; quiz with basic results; price alerts on up to three quiz picks by confirmed email; the deals digest if they opt in to marketing |
+| Reviewer (unlocked) | Visitor whose review was published | Analytics layer for 12 months from publication, renewed by a published follow-up; saved items; alerts on five products; comparisons up to three, saved |
+| Member (Premium) | Paying subscriber | Reviewer capabilities plus the full durability dataset, saved personalized rankings, unlimited comparisons and alerts, full price history, the member digest, reports within limits |
 | Brand (claimed) | Verified brand representative | Moderated responses, aggregated own-product analytics, correction requests on data cards; no effect on scores |
 | Operator (admin) | Nicholas Moeller | Mission control, moderation, publishing, rubric versions, budgets, rollbacks |
 
 ### 4.2 Site map and page types
 
-All routes render from published views. Indexability is decided by one function, `index_gate` (section
-8.2), and stored only in `pages.indexable`.
+All routes render from published views. Indexability for every page type is decided by one function,
+`index_gate(page_id)` (section 8.2), which branches by page type, and is stored only in `pages.indexable`.
+The rules in the table below are the branches of that function.
 
 | Route pattern | Page type | Indexable when |
 |---|---|---|
@@ -146,7 +148,7 @@ All routes render from published views. Indexability is decided by one function,
 | `/methodology/`, `/review-policy/`, `/about/`, `/disclosure/`, `/privacy/`, `/terms/`, `/dmca/` | Trust pages | Always |
 | `/account/*` | Saved items, alerts, membership | Never |
 | `/admin/*` | Mission control | Never; role-gated |
-| `/go/[click_id]` | Affiliate redirect | Never; robots.txt disallow plus X-Robots-Tag noindex; 302, referrer preserved, subid passthrough, merchant deep link untouched |
+| `/go/[offer_id]` | Affiliate redirect | Never; robots.txt disallow plus X-Robots-Tag noindex; the handler inserts the `clicks` row, uses its id as the subid, then 302s with referrer preserved and the merchant deep link untouched |
 
 ### 4.3 Review platform
 
@@ -156,8 +158,8 @@ Submission form (required unless noted):
 - Sleeper context: position(s), body weight band (under 130, 130 to 230, over 230), partner (and band),
   primary need.
 - Ratings (1 to 5): comfort and support, durability so far, temperature, motion isolation, edge support,
-  delivery and setup, customer service, value; overall. Stored as rows in `review_ratings` keyed to
-  `rubric_criteria`.
+  delivery and setup, customer service, value, and overall. All stored as rows in `review_ratings` keyed to
+  `rubric_criteria` (overall uses the key `overall`; there is no separate column).
 - Text: likes (minimum 40 characters), dislikes (minimum 40 characters), comment (optional).
 - Evidence: a photo of the bed with no people in it (required); receipt, order email, or serial (optional,
   raises verification tier). Law-label photos are accepted as evidence but never displayed.
@@ -168,10 +170,11 @@ Submission form (required unless noted):
 Verification tiers: Tier 1 "Photo verified" (photo passed checks); Tier 2 "Verified purchase" (photo plus
 purchase evidence). Both display; weights differ in scoring (8.2), never in AggregateRating (11.4).
 
-Status machine: `submitted` to `moderating` and `verifying` (parallel) to `published`, `needs_human`,
-`rejected`, or `removed`. A review publishes only through `publish_review()` under a row lock when both
-moderation and verification results are clean. Between submission and publication the reviewer sees
-"pending." Follow-up updates pass through the same moderation.
+Status machine: `submitted`, `pending` (moderation and verification run in parallel and write
+`moderation_result` and `verification_result`), `needs_human`, `published`, `rejected`, `removed`. A review
+publishes only through `publish_review()` under a row lock when both results are clean. Between submission
+and publication the reviewer sees "pending." Follow-up updates pass through the same moderation and publish
+only through `publish_update()`.
 
 Moderation: AI pre-screen for abuse, spam, near-duplicates (trigram similarity), prohibited content
 (personal data, threats, defamation of individuals), and material-connection inconsistencies. Categories are
@@ -186,21 +189,24 @@ classifier and queue, labeled, logged. Brand correction requests on data cards g
 required source.
 
 Disputes: enumerated grounds only (reviewer is not an owner; prohibited content; provable falsity with
-evidence). Reviews stay published during a dispute. Outcome counts are published quarterly on the Review
-Policy page.
+evidence). Any party may raise one: through the email channel on the Review Policy page from Phase 3, and
+through the brand portal from Phase 5. Reviews stay published during a dispute. Outcome counts are published
+quarterly on the Review Policy page.
 
 ### 4.4 Access tiers
 
 | Capability | Visitor | Reviewer (unlocked) | Premium |
 |---|---|---|---|
-| Reviews, scores, sentiment summary (total count and number of sources), rankings, comparisons up to 3 | Yes | Yes | Yes |
+| Reviews, scores, sentiment summary (total count and number of sources), rankings | Yes | Yes | Yes |
+| Comparisons | Up to 3, not saved | Up to 3, saved | Unlimited, saved, shareable |
 | Review filters by body band, position, need | No | Yes | Yes |
 | Sentiment by source type, complaint frequency table | No | Yes | Yes |
 | Durability by ownership year (full dataset) | No | Headline chart | Full |
 | Price history | Last 30 days | 12 months | Full plus unlimited alerts |
 | Personalized weighted rankings | Preview | Full, not saved | Full, saved |
 | Quiz | Basic results | Full results with alternatives | Full plus saved profiles |
-| Alerts | 3 quiz picks by confirmed email | 5 products | Unlimited plus weekly digest |
+| Alerts | 3 quiz picks by confirmed email | 5 products | Unlimited |
+| Digests | Deals digest (marketing opt-in) | Deals digest | Deals digest plus member digest |
 | Reports | No | No | Included within limits |
 
 Everything in the Visitor column is what indexable pages contain. Gated content is never server-rendered
@@ -234,8 +240,9 @@ index, fiberglass map with public-record sources. Computed by SQL views refreshe
 
 ### 4.8 Alerts and email
 
-Transactional (Resend): verification, review published, follow-up requests, alert triggers, double opt-in.
-Marketing (Klaviyo, separate consent): weekly deals digest, sale-event previews, quiz follow-up,
+Transactional (Resend): verification, review published, follow-up requests, alert triggers, double opt-in,
+and the member digest for premium members. Marketing (Klaviyo, separate consent): the weekly deals digest to
+all consented profiles (the base for stream 7 sponsorship), sale-event previews, quiz follow-up,
 founding-reviewer campaign. Alert types: price below target, price drop percentage, observed-sale detected,
 rank change, new model above score, follow-up due. Global Privacy Control honored on marketing.
 
@@ -333,16 +340,23 @@ Money is stored as `microusd bigint`. Only the `public_api` schema is exposed th
   fiberglass_source_document_id)
 - `brand_public_records` (brand_id, kind ftc|recall|litigation|law, summary, source_document_id, occurred_at)
 - `products` (category_id, brand_id, canonical_name, slug unique, lifecycle_status, published_at,
-  score_dirty bool, next_refresh_at, msrp_microusd, image_path)
-- `product_variants` (product_id, name, firmness, size, model_number, upc, gtin, sku_map jsonb)
+  score_dirty bool, next_refresh_at, msrp_microusd, image_path). `score_dirty` and `next_refresh_at` are
+  exempt from change logging.
+- `product_variants` (product_id, name, firmness, size, model_number, upc, gtin, sku_map jsonb;
+  unique(product_id, name))
 - `product_identifiers` (variant_id, type, value, source_document_id; unique(type, value))
 - `product_aliases` (product_id, alias, source_document_id; unique(alias))
 - `entity_candidates` (raw_name, raw_model, source_document_id, proposed_product_id, confidence, decision,
   decided_by, decided_at)
 - `attributes` (category_id, key, name, unit, datatype, is_objective, is_required, normalization jsonb)
 - `spec_values` (product_id, variant_id nullable, attribute_id, value_text, value_num, unit, normalized_num,
-  source_document_id, confidence, collected_at, verified_at, run_id, is_canonical; partial unique
-  (product_id, attribute_id) where is_canonical)
+  source_document_id, confidence, collected_at, verified_at, run_id, is_canonical;
+  unique(product_id, coalesce(variant_id, ''), attribute_id, source_document_id); partial unique
+  (product_id, attribute_id) where is_canonical). Canonical selection: manufacturer source first, then
+  highest confidence, then latest `verified_at`, recomputed by a trigger on insert or update.
+- `brand_public_records` unique(brand_id, kind, source_document_id); `certifications` unique(coalesce(product_id,
+  ''), coalesce(brand_id, ''), scheme, certificate_id); `entity_candidates` unique(source_document_id,
+  raw_model)
 - `warranty_terms` (product_id, years, prorated_after_years, sag_threshold_inches, exclusions jsonb,
   trial_nights, return_fee_microusd, return_conditions, source_document_id, verified_at; unique(product_id))
 - `certifications` (product_id or brand_id, scheme, certificate_id, verified_at, source_url)
@@ -351,24 +365,28 @@ Money is stored as `microusd bigint`. Only the `public_api` schema is exposed th
 - `sources` (key, name, type, license_class, retention_days, allow_excerpt bool, store_title bool,
   store_author bool, rate_limit, cost_per_call_microusd, credentials_ref). YouTube: retention_days 30,
   allow_excerpt false, store_title false, store_author false.
-- `source_documents` (source_id, external_id, product_id nullable, url, title nullable, fetched_at,
-  content_hash, expires_at, provider_run_id; unique(source_id, external_id)). One row per third-party
-  review, video, comment, or page.
+- `source_documents` (source_id, external_id, product_id nullable, url, title nullable, metrics jsonb
+  (counts such as views, likes, comment totals; the only YouTube data that persists past 30 days),
+  fetched_at, content_hash, expires_at, provider_run_id; unique(source_id, external_id)). One row per
+  third-party review, video, comment, or page.
 - `raw_content` (source_document_id, body, mime, expires_at); nightly purge.
 - `observations` (product_id, criterion_key nullable, source_document_id nullable, review_id nullable
   (check: exactly one set), kind, polarity, strength 1 to 3, excerpt varchar(400) with a CHECK of 25 words
   or fewer and null when the source disallows excerpts, pointer jsonb limited to url and source-local id,
   pointer_hash, sleeper_context jsonb, extracted_by_model, prompt_version, run_id, superseded_by,
-  expires_at nullable; unique(coalesce(source_document_id, review_id), criterion_key, pointer_hash))
+  expires_at nullable; unique(coalesce(source_document_id, review_id), coalesce(criterion_key, ''),
+  pointer_hash))
 - `price_points` (offer_id, price_microusd, list_price_microusd, observed_at, on_sale bool, event_tag;
   unique(offer_id, observed_at::date))
+- `price_events` (offer_id, kind drop|sale_start|sale_end|below_target, from_microusd, to_microusd,
+  drop_pct, detected_at; unique(offer_id, kind, detected_at::date)), written by `detect_price_events`
 
 ### 7.3 reviews
 - `reviews` (product_id, variant_id, user_id, purchase_month, price_paid_microusd, retailer, sleeper jsonb,
-  overall smallint, likes, dislikes, comment, status enum, moderation_result jsonb, verification_result
-  jsonb, verification_tier smallint, material_connection bool, material_connection_text, incentive_disclosed
-  bool, published_at, ip_hash, device_hash; partial unique (user_id, product_id) where status not in
-  ('rejected','removed'))
+  likes, dislikes, comment, status enum submitted|pending|needs_human|published|rejected|removed,
+  moderation_result jsonb, verification_result jsonb, verification_tier smallint, material_connection bool,
+  material_connection_text, incentive_disclosed bool, published_at, ip_hash, device_hash; partial unique
+  (user_id, product_id) where status not in ('rejected','removed'))
 - `review_ratings` (review_id, criterion_key references rubric criteria keys, value smallint 1 to 5;
   unique(review_id, criterion_key))
 - `review_updates` (review_id, at_months, durability, sag_observed, still_recommend, comment, status,
@@ -380,14 +398,16 @@ Money is stored as `microusd bigint`. Only the `public_api` schema is exposed th
   model, created_at)
 - `brand_claims` (brand_id, user_id, email_domain, status, verified_at)
 - `brand_responses` (review_id, brand_user_id, body plain text, status, published_at)
-- `disputes` (review_id, raised_by, ground enum, evidence, status, resolution, resolved_at)
+- `disputes` (review_id, raised_by nullable, contact_email nullable, ground enum, evidence, status,
+  resolution, resolved_at)
 - `corrections` (subject_kind, subject_id, brand_user_id, claim, source_url, status, resolved_at)
 - `consents` (user_id, kind terms|privacy|content_license|marketing|age, version, accepted_at)
 
 ### 7.4 scoring
-- `rubrics` (category_id, version, status, weights jsonb, notes)
+- `rubrics` (category_id, version, status, notes)
 - `rubric_criteria` (rubric_id, key, name, type objective|subjective|owner, weight, normalization jsonb,
-  evidence_floor int, prior_weight int default 10)
+  evidence_floor int (default 3 for owner criteria, 8 for subjective), prior_weight int default 10). Weights
+  live only here.
 - `assessments` (product_id, rubric_id, criterion_key, score, rationale, evidence_count, confidence, model,
   prompt_version, run_id, is_current; partial unique(product_id, rubric_id, criterion_key) where is_current)
 - `owner_aggregates` (product_id, criterion_key, n_raw, n_weighted, mean_raw, mean_weighted, shrunk_mean,
@@ -401,18 +421,24 @@ Money is stored as `microusd bigint`. Only the `public_api` schema is exposed th
 
 ### 7.5 content
 - `content_blocks` (subject_kind, subject_id, block_type, version, status, body jsonb, input_hash,
-  source_count, generated_by, prompt_version, qa_report jsonb, approved_by, published_at, is_current)
+  source_count, generated_by, prompt_version, qa_report jsonb, approved_by, published_at, is_current;
+  unique(subject_kind, subject_id, block_type, version); partial unique(subject_kind, subject_id,
+  block_type) where is_current)
 - `content_citations` (block_id, sentence_idx, target_kind observation|review|spec_value|warranty_term|
-  assessment|price_point|public_record, target_id; trigger validates the target exists)
-- `pages` (route unique, page_type, product_id, category_id, comparison_pair_id (check: exactly one set),
-  status, indexable bool, gate_report jsonb, last_built_at, last_verified_at)
+  assessment|price_point|public_record|score|owner_aggregate|ranking, target_id; trigger validates the
+  target exists)
+- `pages` (route unique, page_type, product_id, category_id, comparison_pair_id (check: at most one set;
+  home, trust, deals, quiz, and study pages set none), status, indexable bool, gate_report jsonb,
+  demoted_at nullable, last_built_at, last_verified_at)
 - `comparison_pairs` (product_a, product_b, demand_signal, status; unique(least, greatest))
 - `data_studies` (slug, title, query_ref, dataset_path, published_at)
 
 ### 7.6 commerce
-- `merchants` (name, network, program_id, cookie_days, rate_note, status, deep_link_policy)
+- `merchants` (name, network, program_id, cookie_days, rate_note, status, deep_link_policy,
+  price_extractor jsonb (URL pattern plus CSS or JSON path used by W02))
 - `affiliate_offers` (product_id, variant_id, merchant_id, url_template with {subid}, price_microusd,
-  currency, availability, price_as_of, last_verified_at, active)
+  currency, availability, price_as_of, last_verified_at, active; unique(product_id, coalesce(variant_id,
+  ''), merchant_id))
 - `promo_codes` (offer_id, code, authorized_by, valid_from, valid_to, exclusive bool, status)
 - `clicks` (id used as subid, offer_id, page_route, user_id nullable, session_hash, at); retained 13 months
 - `conversions` (network, offer_id, click_id nullable, amount_microusd, commission_microusd, status,
@@ -435,10 +461,18 @@ Money is stored as `microusd bigint`. Only the `public_api` schema is exposed th
 - `pipeline_runs`, `pipeline_steps` (input_hash, output_hash), `ai_calls` (run_id, step_id, product_id
   nullable, task, provider, model, input_tokens, output_tokens, cached_tokens, cost_microusd, latency_ms,
   prompt_version), `budgets` (scope, period, limit_microusd, spent_microusd, reserved_microusd, kill_switch),
-  `change_log` (table_name, row_id, op insert|update|delete, old_row jsonb, new_row jsonb, actor_type,
-  actor_id, reason, run_id, reverted_by; admin-only RLS), `models`, `prompt_versions`,
-  `search_console_daily` (route, query, impressions, clicks, position, date), `growth_proposals`,
-  `settings`
+  `budget_reservations` (budget_id, run_id, step_id, estimated_microusd, actual_microusd, status
+  reserved|settled|expired, expires_at), `change_log` (table_name, row_id, op insert|update|delete, old_row
+  jsonb, new_row jsonb, actor_type, actor_id, reason, run_id, reverted_by; admin-only RLS), `models`,
+  `prompt_versions`, `search_console_daily` (route, query, impressions, clicks, position, date),
+  `growth_proposals`, `settings`
+
+Tracked tables (change-log triggers): `products`, `product_variants`, `product_identifiers`,
+`product_aliases`, `spec_values`, `warranty_terms`, `certifications`, `brand_public_records`, `brands`,
+`observations`, `reviews`, `review_ratings`, `review_updates`, `brand_responses`, `disputes`, `corrections`,
+`rubrics`, `rubric_criteria`, `assessments`, `content_blocks`, `pages`, `affiliate_offers`, `promo_codes`,
+`entitlements`, `profiles`, `settings`. Not tracked: `price_points`, `price_events`, `owner_aggregates`,
+`scores`, `rankings`, `search_console_daily`, `ai_calls`, `pipeline_steps`, `clicks`, `raw_content`.
 
 Indexes on all foreign keys; composite indexes as listed in the unique constraints plus
 `observations(product_id, criterion_key)`, `reviews(product_id, status)`, `search_console_daily(route,
@@ -450,8 +484,14 @@ date)`. RLS on all `accounts` and `reviews` tables and on `change_log`.
 One Supabase project per environment. Migrations in `supabase/migrations/` applied by GitHub Actions with
 an up-and-down test. Only the `public_api` schema is exposed through PostgREST. Every `public_api` view is
 created with `security_invoker = true`, selects a whitelist of columns, filters to published rows, and is
-granted only to `anon` and `authenticated`. Write paths are RPC functions and route handlers running with
-the service role server-side.
+granted only to `anon` and `authenticated`. Because the views run as the caller, base-table access is the
+real enforcement: `anon` and `authenticated` receive column-level SELECT only on the whitelisted columns of
+`catalog` tables, `evidence.observations` and `evidence.price_points`, `scoring` current rows, `content`
+published blocks and pages, and `commerce.affiliate_offers` and `promo_codes`; `reviews`, `review_ratings`,
+`review_updates`, and `brand_responses` carry an `anon` RLS policy of `status = 'published'` with the
+hashed and evidence columns excluded from the grant; every other table has no grant to those roles. A pgTAP
+test asserts, per role, that no column outside the whitelist is readable. Write paths are RPC functions and
+route handlers running with the service role server-side.
 
 ### 8.2 SQL functions (deterministic core, each with pgTAP fixtures)
 
@@ -459,14 +499,16 @@ the service role server-side.
   computed once per scoring run, log, or thresholds, with direction) and returns 0 to 10.
 - `aggregate_owner_ratings(product_id, run_id)`: per criterion over published `review_ratings`:
   weights w = 1.0 for Tier 2, 0.7 for Tier 1, 0 for material-connection reviews;
-  `n_weighted = sum(w)`, `mean_weighted = sum(w * value) / n_weighted`;
+  `n_weighted = sum(w)`; when `n_weighted = 0` the criterion row is written with nulls and is unscored;
+  otherwise `mean_weighted = sum(w * value) / n_weighted`;
   prior = category weighted mean for the criterion frozen at the start of the run (fallback: 3.5);
   `shrunk_mean = (n_weighted / (n_weighted + m)) * mean_weighted + (m / (n_weighted + m)) * prior` with
   `m = rubric_criteria.prior_weight` (default 10). Also stores `n_raw` and `mean_raw` (unweighted, excluding
   material-connection reviews) for display and AggregateRating.
 - `compute_scores(product_id, rubric_id, run_id)`: objective criteria from `normalize_spec` on canonical
-  specs; owner criteria = `shrunk_mean * 2` (1 to 5 scale to 0 to 10); subjective criteria from the current
-  assessment when `evidence_count >= evidence_floor`, else unscored. `coverage = sum(weight of scored
+  specs; owner criteria = `shrunk_mean * 2` (1 to 5 scale to 0 to 10) only when `n_weighted >=
+  evidence_floor` (default 3), else unscored; subjective criteria from the current assessment when
+  `evidence_count >= evidence_floor` (default 8), else unscored. `coverage = sum(weight of scored
   criteria) / sum(all weights)`. `overall = sum(weight * score) / sum(weight of scored) * (1 - penalty)` with
   `penalty = 0.15 * least(1, greatest(0, 0.70 - coverage) / 0.70)`. If `coverage < 0.5` the product is
   scored but excluded from rankings and flagged. `confidence = coverage * least(1, (native_review_n + 0.25 *
@@ -474,37 +516,63 @@ the service role server-side.
 - `compute_rankings(category_id, rubric_id, modifier_key, run_id)`: orders by `overall desc,
   native_review_n desc, observation_n desc, product_id`, excludes coverage under 0.5, writes `rankings`.
 - `personal_ranking(user_id, category_id, weights)`: same formula with user weights at request time.
-- `index_gate(product_id)`: passes only when all hold: (a) data card complete: every `attributes.is_required`
-  has a canonical `spec_values` row, `warranty_terms` has `years` and `trial_nights`, and a `price_points`
-  row exists within 30 days; (b) owned signal: at least `min_price_history_days` of first-party price
-  history or at least 3 published native reviews; (c) evidence: at least `min_observations` non-superseded,
-  non-expired observations across at least `min_sources` distinct sources, or at least `min_native_reviews`
-  published native reviews; (d) unique-content ratio at or above `min_unique_ratio`. Writes `pages.indexable`
-  and `gate_report`. This is the only index rule; `CLAUDE.md` states the same rule.
+- `index_gate(page_id)`: the only index rule, branching on `pages.page_type`, writing `pages.indexable` and
+  `gate_report`. Every branch also requires (e) `pages.demoted_at is null`.
+  Model page: (a) data card complete: every `attributes.is_required` has a canonical `spec_values` row,
+  `warranty_terms` has `years` and `trial_nights`, and a `price_points` row exists within 30 days; (b) owned
+  signal: at least `min_price_history_days` (default 30) of first-party price history or at least 3
+  published native reviews; (c) evidence: at least `min_observations` (default 20) non-superseded,
+  non-expired observations across at least `min_sources` (default 2) distinct sources, or at least
+  `min_native_reviews` (default 5) published native reviews; (d) unique-content ratio at or above
+  `min_unique_ratio` (default 0.5), where the ratio is computed by W09 from the assembled blocks as
+  (characters of published native review text plus first-party data blocks: price history, native counts,
+  owner aggregates, and generated sentences that carry a citation) divided by all rendered body characters,
+  stored in `gate_report`.
+  Brand hub: 3 or more indexable model pages for the brand. Comparison: both model pages indexable and
+  `comparison_pairs.demand_signal` present. Ranking: 8 or more indexable model pages in the category, and for
+  modifier rankings a rubric criterion with evidence for that modifier. Data study, deals, quiz landing, and
+  trust pages: indexable once published. Home: always. `CLAUDE.md` states the model-page rule with the
+  category defaults.
 - `publish_review(review_id)`: row lock; requires clean moderation and verification results; sets
-  published; inserts the `entitlements` row (`source = review`, `expires_at = published_at + 12 months`);
-  enqueues `extract` for the review; enqueues scoring dirty flag. `remove_review` and `reject_review`
-  revoke the entitlement.
+  published; inserts the `entitlements` row (`source = review`, `source_id = review_id`, `expires_at =
+  published_at + 12 months`); enqueues `extract` for the review; sets the product's dirty flag.
+- `publish_update(update_id)`: row lock; requires clean moderation; sets `review_updates.published_at`;
+  inserts an `entitlements` row (`source = review`, `source_id = update_id`, 12 months from its own
+  publication); sets the dirty flag.
+- `reject_review(review_id, reason)` and `remove_review(review_id, reason)`: status transition, revocation of
+  every `entitlements` row whose `source_id` is the review or its updates, `moderation_events` row.
 - `effective_entitlements(user_id)`: merges active subscription plan, non-expired review entitlements, and
   manual grants.
-- `budget_check(scope, estimated_microusd)`: atomically adds to `reserved_microusd` and refuses when
-  `spent + reserved >= limit`; `budget_settle(reservation_id, actual_microusd)` on completion.
+- `budget_check(scope, estimated_microusd, run_id, step_id)`: atomically inserts a `budget_reservations`
+  row, adds to `reserved_microusd`, and refuses (flipping the kill switch) when `spent + reserved >= limit`;
+  returns the reservation id. `budget_settle(reservation_id, actual_microusd)` moves the amount from
+  reserved to spent. Reservations older than their `expires_at` (default 6 hours; 48 hours for Batch API
+  steps) are expired by W19 and released.
+- `detect_price_events(offer_id)`: compares the latest price point with the 90-day median and the previous
+  point; writes `price_events` (drop of 5 percent or more, sale start, sale end, below a user target) and
+  matches `alerts` into `alert_events`.
 - `revert_run(run_id)` and `revert_change(change_id)`: reverse-chronological application of `change_log`
   rows through the same RPCs so triggers fire; marks affected products dirty; enqueues rebuild.
 - `delete_user(user_id)`: anonymizes reviews (ratings kept under the content license, text and evidence
   removed), purges storage objects and change-log rows containing the user's data, calls Resend, Klaviyo,
   and Stripe deletion APIs, logs to `deletion_requests`.
 
-Scoring orchestration: row triggers on specs, observations, reviews, and assessments only set
-`products.score_dirty`. A pg_cron job every 10 minutes takes `pg_advisory_xact_lock(hashtext(category_id))`,
-freezes category statistics, rescores all dirty products in the category under one `run_id`, then
-recomputes rankings once. A rubric or normalization change marks the whole category dirty.
+Scoring orchestration: row triggers on specs, observations, reviews, review ratings, and assessments set
+`products.score_dirty` only when it is not already set (`update ... where id = $1 and not score_dirty`), so
+batch extraction produces one flag change, not thousands of log rows. A pg_cron job every 10 minutes takes
+`pg_advisory_xact_lock(hashtext(category_id))` for each category with any dirty product, freezes category
+statistics (attribute min and max, criterion priors), and rescores every product in that category under one
+`run_id`, then recomputes rankings once. Rescoring the whole category keeps all objective scores on the same
+normalization scale; at 30 to 500 products per category the cost is negligible. A rubric or normalization
+change marks the category dirty.
 
 ### 8.3 Scheduled jobs (pg_cron)
 Every 10 minutes: category rescoring. Nightly: purge expired `raw_content`, `source_documents`, and
-`observations`; receipt and label deletion at 30 days after verification; price event detection;
-entitlement expiry; quiz session expiry; hash rotation. Weekly: refresh enqueue; link and code health;
-growth proposals; digest build. Monthly: rubric drift report; cost report; DMCA renewal reminder check.
+`observations`; receipt and label deletion at 30 days after verification; `detect_price_events` for offers
+with new price points; entitlement expiry; quiz session expiry; score, assessment, and ranking history purge
+beyond the last 30 runs per product. Weekly: refresh enqueue; link and code health; growth proposals;
+digest builds. Monthly: rubric drift report; cost report; DMCA renewal reminder check. Quarterly: rotation of
+the salt used for IP and device hashes (hashes older than 12 months are already purged nightly).
 
 ### 8.4 Queues (pgmq) and idempotency
 Queues: `collect`, `extract`, `assess`, `build_page`, `qa`, `publish`, `moderate`, `verify`, `notify`,
@@ -514,9 +582,10 @@ natural keys in section 7, so retries and re-collection never double-count.
 
 ### 8.5 Route handlers and edge functions
 `submit_review`, `submit_update`, `brand_claim`, `brand_response` (route handlers with service role);
-`stripe_webhook` (edge function, signature check, idempotent by event id); `/go/[click_id]` (Next route
-handler: logs click, 302 to `url_template` with subid, X-Robots-Tag noindex); `search_console_sync`;
-`quiz_result`; `gated/*` route handlers that call `effective_entitlements` and return gated fragments.
+`stripe_webhook` (edge function, signature check, idempotent by event id); `/go/[offer_id]` (Next route
+handler: inserts the `clicks` row with page route and session hash, 302s to `url_template` with the click
+id as subid, X-Robots-Tag noindex); `search_console_sync`; `quiz_result`; `gated/*` route handlers that call
+`effective_entitlements` and return gated fragments.
 
 ### 8.6 Storage
 Buckets: `review-evidence` (private, never displayed; receipts, serials, law labels; objects deleted 30 days
@@ -545,21 +614,21 @@ Every workflow writes `pipeline_runs` and `pipeline_steps`, calls `budget_check`
 | W02 | Price tracker | 3 runs per week; daily inside sale windows | HTTP fetch per merchant with stored extractor; write `price_points`; run price event detection | First-party price history, sale events | collection (tiny) |
 | W03 | Third-party review collection | Queue `collect`; monthly per product, incremental where the actor supports "newer than" | Managed actor or API per source policy; write `source_documents` (unique external id) and `raw_content` with TTL; YouTube stores ids and counts only | Raw content | collection (per-run and weekly caps) |
 | W04 | Observation extraction | Queue `extract` (raw content or published native review) | Batch to Haiku with the extraction schema; validate; upsert observations with excerpt rules per source; mark superseded | Observations | ai_extract |
-| W05 | Sentiment summary | When new observations for a product exceed max(10 percent, 5) since `content_blocks.input_hash`, with a 7-day cooldown | Regenerate only criteria whose observation set changed (Sonnet), write `content_citations`, QA (W10) | Summary blocks | ai_write |
+| W05 | Sentiment summary and criterion assessment | Queue `assess`, enqueued when new observations for a product exceed max(10 percent, 5) since `content_blocks.input_hash`, with a 7-day cooldown | For each criterion whose observation set changed: `criterion_assess` writes `assessments` (score, rationale, evidence_count, citations) with `is_current` maintenance; `sentiment_summary` writes the summary block and `content_citations`; QA (W10); set the dirty flag | Assessments, summary blocks | ai_write |
 | W06 | Moderation | Queue `moderate` on review, update, or brand response | Haiku classifier; trigram duplicate check; auto-clean or human queue; never keyed on rating | Moderation result | ai_moderate |
 | W07 | Verification | Queue `verify` | Photo check (image present, no people, not a stock image) with a vision-capable model; receipt parse extracting only date, retailer, product line; re-encode photo to `review-photos`; set tier; schedule evidence deletion | Verification result | ai_extract |
 | W08 | Scoring | pg_cron every 10 minutes on dirty products | `aggregate_owner_ratings`, `compute_scores`, `compute_rankings` per category under lock | Scores, rankings | none |
-| W09 | Page build | Queue `build_page` | Assemble blocks; comparison narration with citations; run `index_gate`; write `pages` and drafts | Pages, drafts | ai_write |
+| W09 | Page build | Queue `build_page` | Assemble blocks; comparison narration with citations to score and aggregate rows; compute the unique-content ratio; run `index_gate(page_id)` for every page built, including brand hubs, comparisons, and rankings; write `pages` and drafts | Pages, drafts | ai_write |
 | W10 | QA | Queue `qa` | Independent model checks each sentence against its citation rows; rejects blocks with uncited sentences | qa_report | ai_qa |
 | W11 | Publish | Admin approval or per-category auto-publish setting | Set published, ISR revalidation, sitemap regeneration, internal-link recompute, IndexNow for Bing | Live pages | none |
 | W12 | Refresh | Weekly cron | Content-hash checks on manufacturer pages, incremental review and video checks, re-run only changed steps, refresh YouTube documents inside the 30-day window, detect successor models | Updated data | collection, ai_extract |
 | W13 | Alerts and email | Nightly and event-driven | Batch `alert_events` per user or subscriber; Resend; weekly digest via Klaviyo to consented profiles | Emails | email |
 | W14 | Review follow-ups | Daily cron | Requests at 6, 12, 24 months; updates through W06; extend unlock on publish | Updates | email |
 | W15 | Search Console ingest | Daily cron | Pull by route and query into `search_console_daily` | Metrics | none |
-| W16 | Growth proposals | Weekly cron | Propose comparison pairs with impressions but no page; modifier pages with query evidence; noindex for zero-impression thin pages after 8 weeks; flag models with clicks but no price data | Proposals | none |
+| W16 | Growth proposals and demotion | Weekly cron | Propose comparison pairs with impressions but no page and modifier pages with query evidence (operator approves); automatically set `pages.demoted_at` on pages with zero impressions after 8 weeks whose gate report is thin, which `index_gate` clause (e) turns into noindex; flag models with clicks but no price data; the operator can clear a demotion in admin | Proposals, demotions | none |
 | W17 | Social autopilot (Phase 4: Pinterest and email only) | Daily cron | Select data events; render varied card templates; 1 to 2 pins per day linking to site pages; captions carry incentive and affiliate disclosures where applicable | Posts | ai_write |
 | W18 | Offer, link, and code health | Weekly cron | HEAD checks, redirect targets, availability; validate promo codes against network feeds and validity windows; deactivate failures | Offer and code status | none |
-| W19 | Budget reconciliation | Every 15 minutes | Settle batch results, reconcile provider spend with `budgets`, alert on drift; kill switch is flipped by `budget_check` itself | Reconciliation | none |
+| W19 | Budget reconciliation | Every 15 minutes | Settle batch results, expire stale reservations, reconcile provider spend with `budgets`, alert on drift; the kill switch is flipped by `budget_check` itself | Reconciliation | none |
 | W20 | Daily health report | Daily cron | Runs, failures, drafts, moderation and verification backlogs, spend, expiring documents, growth summary | Report | email |
 | W21 | Entity resolution | After W01 and W03 | Blocking on brand and model tokens; identifier match; AI adjudication for ambiguous; merge and split queue | Decisions | ai_extract |
 | W22 | Data studies | Monthly cron | Run study queries, render charts and CSV, publish, enqueue social and journalist-pitch drafts | Studies | ai_write |
@@ -577,6 +646,7 @@ Every workflow writes `pipeline_runs` and `pipeline_steps`, calls `budget_check`
 | review_moderate | Haiku 4.5 | Online | flags[], severity, action | $0.005 | 40 reviews, 2 hours |
 | photo_verify | Haiku 4.5 (vision) | Online | has_bed, has_person, is_stock_like, confidence | $0.01 | 30 photos, 1 hour |
 | receipt_parse | Haiku 4.5 (vision) | Online | date, retailer, product_line only | $0.01 | 15 receipts, 1 hour |
+| criterion_assess | Sonnet 5.5 | Online | score 0 to 10, rationale, evidence_count, citation ids | $0.03 | 15 products, 2 hours |
 | sentiment_summary | Sonnet 5.5 | Online | summary sentences each with citation ids, counts | $0.06 | 15 products, 3 hours |
 | comparison_narrate | Sonnet 5.5 | Online | choose-A-if and choose-B-if bullets with citations | $0.04 | 15 pairs, 2 hours |
 | ranking_rationale | Sonnet 5.5 | Online | rationale with citations | $0.05 | 10 lists, 1 hour |
@@ -594,15 +664,15 @@ ceiling $2.50. Expected AI spend at launch scale (30 models, monthly refresh): u
 ## 11. Frontend design
 
 ### 11.1 Stack and rendering
-Next.js App Router, TypeScript, Tailwind. Indexable routes are rendered with visitor-only data from
-`public_api` views and cached with ISR; on-demand revalidation from W11. Gated content is never
-server-rendered into a cached page: gated sections are client components that call authenticated
-`gated/*` route handlers, which run `effective_entitlements`. Rule: no client-side fetching for indexable
-content; gated content is only ever client-fetched. CI runs an anonymous fetch of every indexable route and
-fails on any gated marker.
+Next.js App Router, TypeScript, Tailwind. Every route under `app/(site)`, indexable or not, is rendered
+with visitor-only data from `public_api` views and cached with ISR; on-demand revalidation from W11. Gated
+content is never server-rendered into a cached page: gated sections are client components that call
+authenticated `gated/*` route handlers, which run `effective_entitlements`. Rule: no client-side fetching
+for visitor content; gated content is only ever client-fetched. CI runs an anonymous fetch of every route in
+`pages` plus a sample of noindex routes and fails on any gated marker.
 
 ### 11.2 Routes
-`app/(site)/…` public; `app/(account)/…` behind auth; `app/admin/…` behind role check; `app/api/go/[click_id]`,
+`app/(site)/…` public; `app/(account)/…` behind auth; `app/admin/…` behind role check; `app/api/go/[offer_id]`,
 `app/api/gated/*`, `app/api/submit/*`.
 
 ### 11.3 Core components
@@ -624,8 +694,8 @@ reviews, shown only when the count is 5 or more; BreadcrumbList; Organization; P
 rankings. No gated data appears in structured data or in the cached HTML.
 
 ### 11.5 Gating UX
-Gated elements render a skeleton with real headline numbers and a one-line unlock prompt. The client never
-decides access; the route handler does.
+Gated elements render a skeleton with the headline numbers that the Visitor column of 4.4 allows (never a
+gated value) and a one-line unlock prompt. The client never decides access; the route handler does.
 
 ### 11.6 Performance and accessibility
 Lighthouse budgets in CI; semantic HTML; keyboard-accessible forms; alt text from data.
@@ -672,8 +742,9 @@ terms, and copy that expects no sentiment.
 1. Page-type order: model pages and brand hubs first (user-platform query class), then comparisons, then
    modifier rankings, then data studies and tools, head terms last.
 2. Batch one: 30 to 40 models that pass `index_gate` including the owned-signal requirement; expansion only
-   when 70 percent of a batch is indexed and impressions rise four weeks running; automatic noindex for
-   zero-impression thin pages after eight weeks. There is no URL-per-month target.
+   when 70 percent of a batch is indexed and impressions rise four weeks running; W16 demotes
+   zero-impression thin pages after eight weeks and `index_gate` turns the demotion into noindex. There is
+   no URL-per-month target.
 3. On-page automation: structured data per 11.4, internal links computed on publish, templated titles with a
    unique headline number, visible last-verified dates, methodology and author links, disclosures,
    AI-assistance lines.
@@ -766,8 +837,9 @@ Acceptance: batch one (30 to 40 models passing `index_gate` with the owned-signa
 live; Lighthouse over 90; structured data validates; anonymous fetch contains no gated markers.
 
 ### Phase 3: Review platform (15 days; Supabase Pro at first real user data)
-Reviewer auth (magic link, Google); submission flow with evidence; W06, W07; `publish_review` and
-entitlements; reviewer disputes; follow-ups W14; founding-reviewer sweepstakes with rules; deletion flow
+Reviewer auth (magic link, Google); submission flow with evidence; W06, W07; `publish_review`,
+`publish_update`, `reject_review`, `remove_review`, and entitlements; disputes raised by any party through
+the Review Policy email channel; follow-ups W14; founding-reviewer sweepstakes with rules; deletion flow
 W23.
 Acceptance: clean review published within 10 minutes; unlock applies at publication; AggregateRating only at
 5 or more; evidence deletion job verified; deletion request completes end to end.
@@ -831,7 +903,7 @@ Acceptance: per-feature, defined at planning time.
 |---|---|---|---|
 | Indexable URLs | 40 to 90 | 150 to 250 | 300 to 500 (evidence-driven) |
 | Organic sessions per month | 1k to 4k | 4k to 12k | 10k to 30k |
-| Native reviews (cumulative) | 200 | 800 | 3,000 |
+| Native reviews (cumulative; organic conversion plus the founding sweepstakes and email campaigns) | 60 to 120 | 300 to 500 | 1,200 to 2,000 |
 | Visitor to review conversion | 0.3% | 0.5% | 0.8% |
 | Email list (consented) | 300 | 1,500 | 6,000 |
 | Tracked affiliate sales per month | 2 to 8 | 10 to 30 | 40 to 120 |
@@ -870,8 +942,20 @@ to the index together and measured as a group.
 
 ## Appendix C: review log
 
-Review 1 (architecture and feasibility, 35 findings) and Review 2 (legal, SEO, trust, revenue, 30 findings)
-were applied in v1.1. Principal changes: one index-gate rule with an owned-signal requirement; visitor-only
+Cycle 2 (verification, 20 findings) was applied in v1.2: unique-content ratio defined; `criterion_assess`
+task and the `assess` queue consumer added so subjective criteria are scorable; `index_gate` takes a page id
+and covers every page type; demotion is a gate clause set by W16; owner criteria require an evidence floor;
+`publish_update`, `reject_review`, `remove_review` defined; `/go/[offer_id]` with the click row created in
+the handler; leak rule extended to every public route; base-table grants and anon policies specified;
+whole-category rescoring; score, aggregate, and ranking rows citable; single status enum with result
+columns; natural keys completed with canonical selection; `budget_reservations` table; tracked tables
+enumerated with a conditional dirty flag; review KPIs made consistent with conversion; digests split into
+deals and member; `metrics` on source documents; overall rating only in `review_ratings`; weights only in
+`rubric_criteria`; disputes open to any party from Phase 3; `pages` check relaxed; `price_extractor`,
+`price_events`, `detect_price_events`, history purge, and quarterly salt rotation added.
+
+Cycle 1: Review 1 (architecture and feasibility, 35 findings) and Review 2 (legal, SEO, trust, revenue, 30
+findings) were applied in v1.1. Principal changes: one index-gate rule with an owned-signal requirement; visitor-only
 ISR with client-fetched gated content and a leak test; `security_invoker` views and column grants; dirty-flag
 category scoring with fully specified math; review status machine and `publish_review`; single entitlement
 source; `pages` as the only indexability truth; current-row semantics on scoring tables; typed citations;
