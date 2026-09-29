@@ -1,124 +1,110 @@
-# Niche Rankings: 68 candidates scored on one rubric
+# Niche Rankings v2: 68 candidates with three-term search volume and commission market
 
-Status: research synthesis, 2026-09-29. Inputs are the five batch reports in `research/niche-batches/`.
-Search volumes are US monthly estimates for the primary "best <niche>" head term only (long-tail and model-name queries excluded); only two were confirmed from tool snippets ("best electric bike" 29.9k, "best coffee maker" 33.1k). Program rates are base tiers. Treat scores as relative, not absolute.
+Status: research synthesis, 2026-09-29. Inputs: `research/niche-batches/` (programs, data, incumbents) and `research/keyword-volumes.csv` (three head terms per niche).
+Volume sources: 4 of 204 terms had a stated tool source; the rest are calibrated estimates because keyword-tool pages were blocked from this environment. Treat every volume as order-of-magnitude until pulled from Ahrefs or Semrush.
 
-## Rubric
+## Definitions
 
-- Affiliate economics (A, weight 35%): log-scaled estimated commission per sale for a new site ($5 = 2, $30 = 5, $100 = 7.5, $300 = 10), adjusted for program accessibility to a new site (+0.5 to -2) and return or clawback risk (0 to -1.5).
-- Revenue-stream breadth (B, weight 15%): number and quality of extra streams beyond product commissions: lead-gen, alert or subscription fit, B2B data, recurring consumables (1 to 5, doubled).
-- SEO potential (C, weight 25%): head-term demand (under 10k = 3, to 25k = 5, to 50k = 6.5, to 100k = 8, over 100k = 9.5) minus incumbent strength (0 to -3.5, lab-testing incumbents score highest) minus YMYL or regulatory penalty (0 to -2.5), plus 1.
-- Public data availability (D, weight 25%): certification and government dataset richness (1 to 5, times 1.2) plus spec comparability (1 to 5, times 0.8).
-- Overall = 0.35A + 0.15B + 0.25C + 0.25D. An affiliate-first alternative (0.50A + 0.15B + 0.15C + 0.20D) is shown as "Alt".
+- Terms: the three most common "best ..." phrasings shoppers use for the niche. Volume is the sum of their US monthly Google searches.
+- $/sale: estimated commission per sale for a new site using the best realistically accessible program (from the batch research).
+- Commission ceiling: Volume x $/sale. The theoretical monthly commission if every search became one sale through the site. A size index, not a forecast.
+- Realistic monthly pool: Volume x 25% click-out x 3% conversion x $/sale = Volume x 0.75% x $/sale. This is the whole-market monthly commission available across all sites ranking for the three terms. A single site capturing 10 percent of clicks would earn about a tenth of it. Long-tail and model-name queries are excluded, so real pools are larger, especially in categories with many models.
+- Scores: A affiliate economics (35%), B revenue-stream breadth (15%), C SEO potential (25%, now using the three-term volume), D public data (25%). Overall = weighted sum. Same rubric as v1 otherwise.
 
 ## Ranked table (all 68)
 
-| Rank | Niche | Family | Est $/sale | "best X" US monthly searches (est.) | A Affiliate | B Streams | C SEO | D Data | Overall | Alt (affiliate-first) | Note |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Engagement rings and fine jewelry | Jewelry | $260 | ~100k | 7.7 | 8 | 7.0 | 10.0 | **8.15** | 8.11 | James Allen 5%, Blue Nile 5%; GIA and 4Cs feeds; lab-grown price collapse |
-| 2 | Ductless mini-split heat pumps | Home energy | $90 | ~20k | 7.1 | 8 | 4.5 | 10.0 | **7.33** | 7.45 | HVACDirect 5%, Sylvane 6%; AHRI + NEEP + ENERGY STAR; installer lead-gen |
-| 3 | Refrigerators | Appliances | $70 | ~40k | 6.2 | 8 | 5.0 | 10.0 | **7.10** | 7.03 | Wayfair 5-7%; DOE/ENERGY STAR; dimension-fit tool |
-| 4 | Washing machines and dryers | Appliances | $40 | ~50k | 5.1 | 8 | 6.5 | 10.0 | **7.10** | 6.71 | Wayfair 5-7%, AJ Madison, LG ~6%?; DOE CCMS + ENERGY STAR; Yale service data |
-| 5 | Dehumidifiers and air purifiers | Home energy | $20 | ~100k | 4.7 | 6 | 8.0 | 10.0 | **7.05** | 6.45 | Levoit 8%, Sylvane 6%; AHAM CADR; filter re-buys |
-| 6 | Laptops and desktops | Tech | $40 | ~200k | 5.1 | 6 | 7.0 | 10.0 | **6.92** | 6.48 | Lenovo 5-7%, Dell Outlet 5%; ENERGY STAR/EPEAT; SKU sprawl |
-| 7 | Car tires and wheels | Mobility | $45 | ~40k | 6.3 | 8 | 4.0 | 10.0 | **6.90** | 6.95 | Tire Rack 6%, Priority Tire 7%; NHTSA UTQG; massive per-vehicle long tail |
-| 8 | Hot tubs, saunas, cold plunges | Outdoor | $250 | ~12k | 8.6 | 8 | 4.5 | 6.0 | **6.85** | 7.40 | Plunge/Redwood $250 flat; hot tubs via dealer lead-gen |
-| 9 | Pool equipment (robots, pumps, heaters) | Outdoor | $85 | ~12k | 7.0 | 8 | 4.5 | 8.0 | **6.79** | 6.99 | Aiper 8-10%, In The Swim 10%; ENERGY STAR/WEF pump data; pool service lead-gen |
-| 10 | Whole-house water filtration / softeners | Home energy | $225 | ~15k | 8.9 | 8 | 4.5 | 5.2 | **6.75** | 7.38 | SpringWell 10-20%, Aquasana 10%; NSF/WQA listings; health-claim scrutiny |
-| 11 | Massage chairs | Home | $225 | ~25k | 8.9 | 6 | 6.0 | 4.8 | **6.73** | 7.23 | Massage Chair Store 5-10%, Warehouse 10%; dealer-polluted SERPs |
-| 12 | Portable power stations / solar generators | Home energy | $55 | ~50k | 5.7 | 6 | 7.5 | 7.6 | **6.66** | 6.39 | EcoFlow/Jackery/Bluetti/Anker 5-10%; UL 2743; constant promos suit alerts |
-| 13 | E-bikes | Mobility | $70 | ~30k | 6.2 | 8 | 5.0 | 8.0 | **6.60** | 6.63 | Ride1Up 5%, Aventon 4%, Trek 5%; UL 2849 lists; insurance lead-gen |
-| 14 | Home battery + DIY solar kits | Home energy | $125 | ~15k | 7.8 | 8 | 3.5 | 7.2 | **6.60** | 7.06 | Renogy 6%, Signature Solar 9% (7d); UL 9540, CEC lists, DSIRE; installer lead-gen |
-| 15 | Dishwashers | Appliances | $30 | ~50k | 4.5 | 6 | 6.5 | 10.0 | **6.60** | 6.13 | NSF 184, DOE, ENERGY STAR; dBA universal spec |
-| 16 | Office chairs and standing desks | Home | $45 | ~80k | 5.8 | 6 | 6.5 | 8.0 | **6.55** | 6.37 | Herman Miller 4%, Autonomous to 10%; BIFMA lists; BTOD |
-| 17 | Water heaters (tankless, heat pump) | Home energy | $36 | ~20k | 4.7 | 8 | 4.5 | 10.0 | **6.46** | 6.20 | No brand programs; AHRI UEF data; plumber lead-gen and rebates |
-| 18 | Credit cards, insurance, loans, solar leads | Non-physical | $120 | ~250k | 5.7 | 8 | 4.5 | 8.0 | **6.32** | 6.33 | Amex $200/approval; issuers closed to new sites; CFPB/TCPA |
-| 19 | Home EV chargers | Home energy | $50 | ~12k | 5.5 | 8 | 3.5 | 9.2 | **6.30** | 6.31 | Emporia/Autel 10%; ENERGY STAR EVSE dataset; electrician lead-gen |
-| 20 | Monitors | Tech | $18 | ~90k | 4.0 | 6 | 5.5 | 10.0 | **6.18** | 5.73 | LG 6%, BenQ 3%; VESA/ENERGY STAR data; RTINGS |
-| 21 | Mattresses and bedding | Home | $140 | ~175k | 6.5 | 6 | 7.0 | 4.8 | **6.13** | 6.17 | DreamCloud $150 flat, Purple $75-150; Pillar4 owns four top sites; 100-night trials |
-| 22 | Smart home security (cameras, alarms) | Tech | $25 | ~65k | 5.1 | 8 | 6.5 | 6.0 | **6.13** | 5.95 | Eufy 7-13%, Arlo 7%, SimpliSafe 8%; ADT leads $27.50; Matter DB |
-| 23 | Espresso machines and grinders | Appliances | $80 | ~90k | 6.9 | 6 | 7.5 | 3.6 | **6.10** | 6.20 | Clive 10%, Seattle Coffee Gear 8%, De'Longhi 12%; no public data |
-| 24 | Home fitness equipment | Home | $75 | ~50k | 6.8 | 6 | 5.5 | 5.6 | **6.05** | 6.24 | NordicTrack 5-7%, REP 5%, Rogue 4%; Garage Gym Reviews owns it |
-| 25 | Standby and portable generators | Home energy | $36 | ~38k | 4.7 | 8 | 4.0 | 8.8 | **6.03** | 5.89 | Retailer 1-2% only; standby is lead-gen; CO safety |
-| 26 | Televisions | Tech | $22 | ~200k | 3.9 | 6 | 7.0 | 8.0 | **6.01** | 5.50 | Amazon 2%, LG 6%; RTINGS/Wirecutter/CNET labs |
-| 27 | Hosting, VPN, password managers | Non-physical | $50 | ~250k | 4.5 | 8 | 6.0 | 6.8 | **5.97** | 5.71 | Bluehost $65, NordVPN 40% plus recurring; March 2026 crushed generic pages |
-| 28 | Projectors and home theater | Tech | $60 | ~55k | 6.4 | 6 | 6.5 | 4.8 | **5.95** | 6.01 | XGIMI 5%, BenQ 3%; ProjectorCentral DB incumbent |
-| 29 | Printers and home office | Tech | $12 | ~100k | 3.7 | 4 | 8.0 | 8.0 | **5.90** | 5.26 | HP Instant Ink $15 CPA; cost-per-page data |
-| 30 | Safes, security hardware, smart locks | Home | $14 | ~30k | 3.5 | 6 | 5.0 | 10.0 | **5.88** | 5.41 | BHMA/UL ratings; brands lack programs; security lead-gen |
-| 31 | Dash cams, car audio, EV accessories | Mobility | $20 | ~45k | 4.2 | 6 | 6.0 | 8.0 | **5.87** | 5.50 | Crutchfield 5-10% (60d); Viofo 6% |
-| 32 | Drones and action cameras | Tech | $28 | ~50k | 4.9 | 6 | 5.0 | 8.0 | **5.85** | 5.68 | Insta360 5-8%, DJI 2-5%; FCC Covered List risk for drones |
-| 33 | Watches, luggage, travel gear | Home | $25 | ~50k | 4.6 | 6 | 6.5 | 6.8 | **5.85** | 5.56 | Peak Design 10%; airline carry-on compliance tool |
-| 34 | Baby gear (car seats, strollers, monitors) | Home | $25 | ~30k | 4.6 | 6 | 4.0 | 9.2 | **5.83** | 5.66 | Nanit 10-20%, Owlet 15%; NHTSA/FMVSS/JPMA/FDA data; BabyGearLab crash rigs |
-| 35 | OTC hearing aids | Health | $90 | ~40k | 5.6 | 8 | 2.5 | 8.0 | **5.80** | 6.00 | Lexie $120 flat, MDHearing 15%; FDA database; HearingTracker lab |
-| 36 | Mesh Wi-Fi and networking | Tech | $22 | ~70k | 4.4 | 4 | 6.5 | 8.0 | **5.76** | 5.37 | TP-Link to 10%, Netgear 7%; Wi-Fi Alliance certs; eero has no program |
-| 37 | Golf equipment and launch monitors | Sports | $45 | ~25k | 5.8 | 6 | 5.0 | 6.0 | **5.68** | 5.75 | Rapsodo 10%, TaylorMade 5-6%; MyGolfSpy lab; sim installer lead-gen |
-| 38 | Robot and battery lawn mowers | Outdoor | $75 | ~25k | 6.8 | 4 | 6.0 | 4.8 | **5.68** | 5.86 | Navimow, Greenworks, Husqvarna ~5%; category exploding |
-| 39 | Ranges, wall ovens, induction cooktops | Appliances | $60 | ~20k | 5.9 | 8 | 2.5 | 7.2 | **5.67** | 5.94 | Induction wave; rebate finder; electrician lead-gen |
-| 40 | Smartphones and tablets | Tech | $30 | ~150k | 2.8 | 6 | 6.0 | 8.8 | **5.58** | 4.96 | Carrier CPA $25-75; Apple pays nothing; GSMArena |
-| 41 | Gaming hardware (consoles, GPUs, PCs) | Tech | $25 | ~80k | 3.1 | 6 | 5.5 | 8.8 | **5.58** | 5.06 | Newegg 1-2%, Razer 15% peripherals; stock alerts are the product |
-| 42 | 3D printers and filament | Tech | $25 | ~55k | 4.6 | 6 | 6.5 | 5.6 | **5.55** | 5.32 | Creality 5-10%, Bambu 3%/5% filament; consumables |
-| 43 | Cameras and lenses | Tech | $45 | ~80k | 5.3 | 6 | 5.5 | 5.6 | **5.53** | 5.49 | B&H 2-8% (60-hour cookie); KEH used 5-10%; DPReview |
-| 44 | E-scooters and e-mopeds | Mobility | $45 | ~20k | 5.8 | 6 | 3.5 | 6.8 | **5.50** | 5.68 | Segway 6%, Apollo 6%; UL 2272; fewer incumbents |
-| 45 | Robot vacuums and mops | Appliances | $40 | ~60k | 5.6 | 6 | 6.5 | 4.0 | **5.47** | 5.46 | Roborock/Narwal/Dreame 5-10%; Vacuum Wars, RTINGS; specs unverified |
-| 46 | Grills, smokers, pellet grills | Appliances | $50 | ~40k | 6.0 | 6 | 5.0 | 4.8 | **5.45** | 5.61 | Z Grills 7%, Traeger 5%; AmazingRibs DB incumbent |
-| 47 | Blenders, stand mixers, food processors | Appliances | $34 | ~60k | 5.7 | 4 | 6.5 | 4.8 | **5.44** | 5.41 | Vitamix ~10%?, Blendtec 8%; recall tracking |
-| 48 | Keyboards, mice, docks, peripherals | Tech | $8 | ~55k | 3.4 | 4 | 6.5 | 8.0 | **5.42** | 4.88 | Logitech 4-10%, Razer 15%, Keychron 5%; USB-IF/Thunderbolt lists |
-| 49 | Sewing, embroidery, cutting machines | Appliances | $45 | ~40k | 6.8 | 4 | 6.0 | 3.6 | **5.38** | 5.62 | Sewing Machines Plus 10%; Joann closure; no public data |
-| 50 | Ceiling, attic, whole-house fans | Home energy | $18 | ~25k | 4.5 | 2 | 6.0 | 8.0 | **5.38** | 5.05 | Big Ass Fans 5%; ENERGY STAR CFM/W; style-driven |
-| 51 | Mobility and medical alert (lead-gen) | Health | $65 | ~18k | 6.0 | 10 | 1.0 | 6.0 | **5.35** | 5.86 | Medical Guardian $70, Bay Alarm $65 (365d); pay-per-call; Centerfield SERPs |
-| 52 | Window / portable air conditioners | Home energy | $13 | ~28k | 2.9 | 4 | 5.0 | 10.0 | **5.35** | 4.78 | ENERGY STAR CEER data; lab incumbents; seasonal |
-| 53 | Pressure washers, snow blowers, chainsaws | Outdoor | $20 | ~25k | 4.2 | 4 | 5.0 | 8.0 | **5.32** | 5.05 | Ohio Power Tool 6.5%; PWMA certified PSI/GPM |
-| 54 | NAS and home storage | Tech | $30 | ~20k | 4.5 | 6 | 4.5 | 6.8 | **5.30** | 5.19 | UGREEN 8%; Backblaze drive stats; price-per-TB tracker |
-| 55 | Central AC / furnaces (installed, lead-gen) | Home energy | $30 | ~12k | 3.5 | 8 | 2.0 | 9.2 | **5.23** | 5.09 | Modernize/Networx leads; TCPA compliance; AHRI data |
-| 56 | Air fryers, countertop ovens, pizza ovens | Appliances | $15 | ~200k | 4.1 | 4 | 8.0 | 4.0 | **5.05** | 4.67 | Ooni 10%; air fryer volume, pizza ovens money |
-| 57 | Cordless power tool platforms | Outdoor | $15 | ~40k | 4.1 | 6 | 6.0 | 4.8 | **5.05** | 4.83 | Amazon Tools 5.5%; battery compatibility DB; deal alerts |
-| 58 | Range hoods and microwaves | Appliances | $12 | ~30k | 3.2 | 4 | 5.0 | 8.0 | **4.97** | 4.56 | HVI CFM/sones data unexploited; low ticket |
-| 59 | Kayaks, SUPs, camping, coolers | Outdoor | $30 | ~25k | 4.5 | 4 | 5.0 | 6.0 | **4.93** | 4.80 | Backcountry 8%, REI 5%; Amazon Outdoors 5.5%; OutdoorGearLab lab |
-| 60 | Pet tech (litter boxes, GPS collars) | Home | $40 | ~18k | 5.6 | 6 | 4.5 | 3.6 | **4.87** | 5.08 | Litter-Robot 8% (90d), Petlibro 10%, Tractive 20%; easiest physical entry |
-| 61 | Musical instruments | Home | $28 | ~20k | 4.9 | 6 | 4.5 | 4.4 | **4.83** | 4.89 | Sweetwater 4-6%; 1st-note spec DB; lesson subscriptions |
-| 62 | Cordless stick vacuums and carpet cleaners | Appliances | $21 | ~50k | 4.3 | 4 | 6.5 | 4.0 | **4.73** | 4.53 | Tineco/Bissell/Shark 5-10%; Dyson 1% |
-| 63 | Home energy monitors and smart panels | Home energy | $15 | ~3k | 4.1 | 6 | 3.5 | 6.0 | **4.73** | 4.70 | Emporia 10%; tiny volume; hub for energy niches |
-| 64 | Headphones, earbuds, speakers, soundbars | Tech | $8 | ~200k | 2.9 | 4 | 7.0 | 5.2 | **4.67** | 4.15 | Amazon 3%; subjective quality; RTINGS/SoundGuys |
-| 65 | Smart thermostats and hubs | Home energy | $11 | ~25k | 3.0 | 4 | 5.0 | 6.0 | **4.41** | 4.07 | ecobee 5-6%; small basket |
-| 66 | Online courses and certifications | Non-physical | $35 | ~10k | 4.8 | 6 | 2.5 | 4.8 | **4.41** | 4.64 | Coursera 10-45% (needs traffic); Class Central owns the DB |
-| 67 | Electric toothbrushes, oral care, shavers | Health | $8 | ~60k | 2.9 | 2 | 5.5 | 6.8 | **4.40** | 3.94 | Amazon 1% category; Electric Teeth owns it |
-| 68 | Coffee makers, kettles, drip brewers | Appliances | $10 | ~33k | 3.9 | 2 | 5.0 | 4.8 | **4.10** | 3.94 | SCA certified list; low ticket |
+| Rank | Niche | Three head terms | Volume/mo | $/sale | Commission ceiling/mo | Realistic pool/mo | Pool rank | A | B | C | D | Overall |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Ductless mini-split heat pumps | best mini split (9,900); best ductless mini split (4,400); best mini split heat pump (3,600) | 17,900 | $90 | $1,611,000 | $12,082 | 40 | 7.1 | 8 | 4.5 | 10.0 | **7.33** |
+| 2 | Refrigerators | best refrigerator (33,100); best refrigerator brands (9,900); best french door refrigerator (8,100) | 51,100 | $70 | $3,577,000 | $26,828 | 15 | 6.2 | 8 | 5.0 | 10.0 | **7.10** |
+| 3 | Laptops and desktops | best laptop (135,000); best gaming laptop (74,000); best laptops (60,500) | 269,500 | $40 | $10,780,000 | $80,850 | 3 | 5.1 | 6 | 7.0 | 10.0 | **6.92** |
+| 4 | Car tires and wheels | best all season tires (27,000); best tire brands (14,000); best tires (12,000) | 53,000 | $45 | $2,385,000 | $17,888 | 26 | 6.3 | 8 | 4.0 | 10.0 | **6.90** |
+| 5 | Hot tubs, saunas, cold plunges | best cold plunge (12,000); best hot tub (9,900); best infrared sauna (8,100) | 30,000 | $250 | $7,500,000 | $56,250 | 5 | 8.6 | 8 | 4.5 | 6.0 | **6.85** |
+| 6 | Pool equipment (robots, pumps, heaters) | best robotic pool cleaner (14,000); best pool vacuum (6,600); best pool heater (4,400) | 25,000 | $85 | $2,125,000 | $15,938 | 31 | 7.0 | 8 | 4.5 | 8.0 | **6.79** |
+| 7 | Whole-house water filtration / softeners | best water softener (14,800); best water softener system (3,600); best whole house water filter (8,100) | 26,500 | $225 | $5,962,500 | $44,719 | 7 | 8.9 | 8 | 4.5 | 5.2 | **6.75** |
+| 8 | Washing machines and dryers | best washing machine (40,500); best washer and dryer (22,200); best dryer (12,100) | 74,800 | $40 | $2,992,000 | $22,440 | 19 | 5.1 | 8 | 5.0 | 10.0 | **6.72** |
+| 9 | Dehumidifiers and air purifiers | best air purifier (74,000); best dehumidifier (33,100); best air purifier for allergies (9,900) | 117,000 | $20 | $2,340,000 | $17,550 | 28 | 4.7 | 6 | 6.5 | 10.0 | **6.67** |
+| 10 | E-bikes | best electric bike (29,900); best electric bikes (9,900); best ebike (8,100) | 47,900 | $70 | $3,353,000 | $25,148 | 18 | 6.2 | 8 | 5.0 | 8.0 | **6.60** |
+| 11 | Home battery + DIY solar kits | best solar battery (6,600); best home battery backup (4,400); best solar panels for home (9,900) | 20,900 | $125 | $2,612,500 | $19,594 | 22 | 7.8 | 8 | 3.5 | 7.2 | **6.60** |
+| 12 | Office chairs and standing desks | best office chair (60,000); best standing desk (18,000); best ergonomic office chair (14,000) | 92,000 | $45 | $4,140,000 | $31,050 | 12 | 5.8 | 6 | 6.5 | 8.0 | **6.55** |
+| 13 | Engagement rings and fine jewelry | best place to buy engagement ring (6,000); best lab grown diamonds (4,000); best engagement rings (3,600) | 13,600 | $260 | $3,536,000 | $26,520 | 16 | 7.7 | 8 | 0.5 | 10.0 | **6.53** |
+| 14 | Water heaters (tankless, heat pump) | best tankless water heater (14,800); best water heater (12,100); best heat pump water heater (4,400) | 31,300 | $36 | $1,126,800 | $8,451 | 49 | 4.7 | 8 | 4.5 | 10.0 | **6.46** |
+| 15 | Massage chairs | best massage chair (18,000); best massage chairs (4,400); best massage chair under 2000 (1,900) | 24,300 | $225 | $5,467,500 | $41,006 | 8 | 8.9 | 6 | 4.5 | 4.8 | **6.35** |
+| 16 | Credit cards, insurance, loans, solar leads | best credit cards (90,000); best car insurance (40,000); best personal loans (27,000) | 157,000 | $120 | $18,840,000 | $141,300 | 2 | 5.7 | 8 | 4.5 | 8.0 | **6.32** |
+| 17 | Home EV chargers | best ev charger (9,900); best home ev charger (6,600); best level 2 ev charger (4,400) | 20,900 | $50 | $1,045,000 | $7,838 | 52 | 5.5 | 8 | 3.5 | 9.2 | **6.30** |
+| 18 | Portable power stations / solar generators | best portable power station (22,000); best solar generator (14,800); best power station (6,600) | 43,400 | $55 | $2,387,000 | $17,902 | 25 | 5.7 | 6 | 6.0 | 7.6 | **6.29** |
+| 19 | Dishwashers | best dishwasher (49,500); best dishwasher brands (6,600); best bosch dishwasher (3,600) | 59,700 | $30 | $1,791,000 | $13,432 | 35 | 4.5 | 6 | 5.0 | 10.0 | **6.23** |
+| 20 | Monitors | best gaming monitor (60,500); best monitor (27,000); best ultrawide monitor (9,900) | 97,400 | $18 | $1,753,200 | $13,149 | 37 | 4.0 | 6 | 5.5 | 10.0 | **6.18** |
+| 21 | Mattresses and bedding | best mattress (135,000); best mattress for side sleepers (40,000); best mattress for back pain (27,000) | 202,000 | $140 | $28,280,000 | $212,100 | 1 | 6.5 | 6 | 7.0 | 4.8 | **6.13** |
+| 22 | Smart home security (cameras, alarms) | best home security system (40,500); best home security camera (27,000); best security cameras (22,000) | 89,500 | $25 | $2,237,500 | $16,781 | 30 | 5.1 | 8 | 6.5 | 6.0 | **6.13** |
+| 23 | Espresso machines and grinders | best espresso machine (60,500); best coffee grinder (22,200); best home espresso machine (8,100) | 90,800 | $80 | $7,264,000 | $54,480 | 6 | 6.9 | 6 | 7.5 | 3.6 | **6.10** |
+| 24 | Televisions | best tv (90,000); best 65 inch tv (40,500); best tvs (27,000) | 157,500 | $22 | $3,465,000 | $25,988 | 17 | 3.9 | 6 | 7.0 | 8.0 | **6.01** |
+| 25 | Hosting, VPN, password managers | best vpn (135,000); best password manager (40,000); best web hosting (27,000) | 202,000 | $50 | $10,100,000 | $75,750 | 4 | 4.5 | 8 | 6.0 | 6.8 | **5.97** |
+| 26 | Dash cams, car audio, EV accessories | best dash cam (40,500); best car speakers (6,600); best car stereo (5,400) | 52,500 | $20 | $1,050,000 | $7,875 | 51 | 4.2 | 6 | 6.0 | 8.0 | **5.87** |
+| 27 | Baby gear (car seats, strollers, monitors) | best baby monitor (22,000); best stroller (18,000); best car seat (14,000) | 54,000 | $25 | $1,350,000 | $10,125 | 44 | 4.6 | 6 | 4.0 | 9.2 | **5.83** |
+| 28 | OTC hearing aids | best hearing aids (27,000); best otc hearing aids (9,900); best over the counter hearing aids (6,000) | 42,900 | $90 | $3,861,000 | $28,958 | 13 | 5.6 | 8 | 2.5 | 8.0 | **5.80** |
+| 29 | Mesh Wi-Fi and networking | best router (40,500); best wifi router (33,000); best mesh wifi (33,000) | 106,500 | $22 | $2,343,000 | $17,572 | 27 | 4.4 | 4 | 6.5 | 8.0 | **5.76** |
+| 30 | Golf equipment and launch monitors | best golf drivers (22,000); best golf balls (18,000); best launch monitor (9,900) | 49,900 | $45 | $2,245,500 | $16,841 | 29 | 5.8 | 6 | 5.0 | 6.0 | **5.68** |
+| 31 | Home fitness equipment | best treadmill (27,000); best rowing machine (22,000); best home gym (9,900) | 58,900 | $75 | $4,417,500 | $33,131 | 10 | 6.8 | 6 | 4.0 | 5.6 | **5.68** |
+| 32 | Ranges, wall ovens, induction cooktops | best gas range (9,900); best induction cooktop (8,100); best induction range (6,600) | 24,600 | $60 | $1,476,000 | $11,070 | 42 | 5.9 | 8 | 2.5 | 7.2 | **5.67** |
+| 33 | Standby and portable generators | best portable generator (14,800); best generator (12,100); best home generator (8,100) | 35,000 | $36 | $1,260,000 | $9,450 | 46 | 4.7 | 8 | 2.5 | 8.8 | **5.66** |
+| 34 | Smartphones and tablets | best phone (60,500); best tablet (60,500); best android phone (33,000) | 154,000 | $30 | $4,620,000 | $34,650 | 9 | 2.8 | 6 | 6.0 | 8.8 | **5.58** |
+| 35 | Gaming hardware (consoles, GPUs, PCs) | best gaming pc (40,500); best graphics card (22,000); best gpu (22,000) | 84,500 | $25 | $2,112,500 | $15,844 | 32 | 3.1 | 6 | 5.5 | 8.8 | **5.58** |
+| 36 | Projectors and home theater | best projector (49,500); best 4k projector (14,800); best home theater projector (8,100) | 72,400 | $60 | $4,344,000 | $32,580 | 11 | 6.4 | 6 | 5.0 | 4.8 | **5.57** |
+| 37 | Printers and home office | best printer (60,500); best home printer (40,500); best all in one printer (22,000) | 123,000 | $12 | $1,476,000 | $11,070 | 43 | 3.7 | 4 | 6.5 | 8.0 | **5.52** |
+| 38 | Safes, security hardware, smart locks | best smart lock (14,000); best gun safe (6,000); best home safe (5,000) | 25,000 | $14 | $350,000 | $2,625 | 67 | 3.5 | 6 | 3.5 | 10.0 | **5.50** |
+| 39 | E-scooters and e-mopeds | best electric scooter (27,000); best electric scooter for adults (6,600); best electric scooters (5,400) | 39,000 | $45 | $1,755,000 | $13,162 | 36 | 5.8 | 6 | 3.5 | 6.8 | **5.50** |
+| 40 | Drones and action cameras | best drone (27,000); best action camera (18,000); best drones (12,000) | 57,000 | $28 | $1,596,000 | $11,970 | 41 | 4.9 | 6 | 3.5 | 8.0 | **5.48** |
+| 41 | Watches, luggage, travel gear | best carry on luggage (18,000); best luggage (14,000); best travel backpack (12,000) | 44,000 | $25 | $1,100,000 | $8,250 | 50 | 4.6 | 6 | 5.0 | 6.8 | **5.48** |
+| 42 | Robot vacuums and mops | best robot vacuum (74,000); best robot vacuum and mop (14,800); best roomba (6,600) | 95,400 | $40 | $3,816,000 | $28,620 | 14 | 5.6 | 6 | 6.5 | 4.0 | **5.47** |
+| 43 | Grills, smokers, pellet grills | best gas grill (22,200); best smoker (18,100); best pellet grill (14,800) | 55,100 | $50 | $2,755,000 | $20,662 | 20 | 6.0 | 6 | 5.0 | 4.8 | **5.45** |
+| 44 | Keyboards, mice, docks, peripherals | best gaming mouse (40,500); best mechanical keyboard (27,000); best wireless mouse (18,000) | 85,500 | $8 | $684,000 | $5,130 | 58 | 3.4 | 4 | 6.5 | 8.0 | **5.42** |
+| 45 | Mobility and medical alert (lead-gen) | best medical alert systems (9,000); best mobility scooter (5,000); best walker for seniors (4,000) | 18,000 | $65 | $1,170,000 | $8,775 | 48 | 6.0 | 10 | 1.0 | 6.0 | **5.35** |
+| 46 | Window / portable air conditioners | best portable air conditioner (27,100); best window air conditioner (18,100); best window ac unit (9,900) | 55,100 | $13 | $716,300 | $5,372 | 57 | 2.9 | 4 | 5.0 | 10.0 | **5.35** |
+| 47 | Pressure washers, snow blowers, chainsaws | best pressure washer (33,000); best snow blower (18,000); best chainsaw (14,000) | 65,000 | $20 | $1,300,000 | $9,750 | 45 | 4.2 | 4 | 5.0 | 8.0 | **5.32** |
+| 48 | Robot and battery lawn mowers | best robot lawn mower (14,000); best battery lawn mower (6,600); best robotic lawn mower (3,600) | 24,200 | $75 | $1,815,000 | $13,612 | 34 | 6.8 | 4 | 4.5 | 4.8 | **5.30** |
+| 49 | NAS and home storage | best external hard drive (18,000); best nas (12,000); best nas for home (4,400) | 34,400 | $30 | $1,032,000 | $7,740 | 53 | 4.5 | 6 | 4.5 | 6.8 | **5.30** |
+| 50 | 3D printers and filament | best 3d printer (60,000); best 3d printers (8,100); best budget 3d printer (6,600) | 74,700 | $25 | $1,867,500 | $14,006 | 33 | 4.6 | 6 | 5.0 | 5.6 | **5.18** |
+| 51 | Cameras and lenses | best camera (27,000); best mirrorless camera (18,000); best camera for beginners (12,000) | 57,000 | $45 | $2,565,000 | $19,238 | 23 | 5.3 | 6 | 4.0 | 5.6 | **5.15** |
+| 52 | Blenders, stand mixers, food processors | best blender (40,500); best food processor (22,200); best stand mixer (14,800) | 77,500 | $34 | $2,635,000 | $19,762 | 21 | 5.7 | 4 | 5.0 | 4.8 | **5.06** |
+| 53 | Sewing, embroidery, cutting machines | best sewing machine (27,100); best embroidery machine (6,600); best cricut machine (4,400) | 38,100 | $45 | $1,714,500 | $12,859 | 38 | 6.8 | 4 | 4.5 | 3.6 | **5.00** |
+| 54 | Ceiling, attic, whole-house fans | best ceiling fan (14,800); best attic fan (4,400); best whole house fan (2,400) | 21,600 | $18 | $388,800 | $2,916 | 65 | 4.5 | 2 | 4.5 | 8.0 | **5.00** |
+| 55 | Kayaks, SUPs, camping, coolers | best coolers (22,000); best kayak (9,900); best paddle board (9,900) | 41,800 | $30 | $1,254,000 | $9,405 | 47 | 4.5 | 4 | 5.0 | 6.0 | **4.93** |
+| 56 | Pet tech (litter boxes, GPS collars) | best automatic litter box (12,000); best self cleaning litter box (8,000); best gps dog collar (5,000) | 25,000 | $40 | $1,000,000 | $7,500 | 54 | 5.6 | 6 | 4.5 | 3.6 | **4.87** |
+| 57 | Musical instruments | best digital piano (9,000); best audio interface (9,000); best acoustic guitar (8,000) | 26,000 | $28 | $728,000 | $5,460 | 56 | 4.9 | 6 | 4.5 | 4.4 | **4.83** |
+| 58 | Cordless stick vacuums and carpet cleaners | best cordless vacuum (49,500); best vacuum (40,500); best carpet cleaner (27,100) | 117,100 | $21 | $2,459,100 | $18,443 | 24 | 4.3 | 4 | 6.5 | 4.0 | **4.73** |
+| 59 | Home energy monitors and smart panels | best home energy monitor (1,900); best energy monitor (880); best smart electrical panel (720) | 3,500 | $15 | $52,500 | $394 | 68 | 4.1 | 6 | 3.5 | 6.0 | **4.73** |
+| 60 | Central AC / furnaces (installed, lead-gen) | best ac unit (6,600); best furnace brands (4,400); best central air conditioner (3,600) | 14,600 | $30 | $438,000 | $3,285 | 63 | 3.5 | 8 | 0.0 | 9.2 | **4.73** |
+| 61 | Cordless power tool platforms | best cordless drill (18,000); best impact driver (9,900); best power tool brand (6,600) | 34,500 | $15 | $517,500 | $3,881 | 61 | 4.1 | 6 | 4.5 | 4.8 | **4.68** |
+| 62 | Headphones, earbuds, speakers, soundbars | best headphones (74,000); best wireless earbuds (74,000); best soundbar (60,500) | 208,500 | $8 | $1,668,000 | $12,510 | 39 | 2.9 | 4 | 7.0 | 5.2 | **4.67** |
+| 63 | Range hoods and microwaves | best microwave (22,200); best over the range microwave (8,100); best range hood (5,400) | 35,700 | $12 | $428,400 | $3,213 | 64 | 3.2 | 4 | 3.5 | 8.0 | **4.60** |
+| 64 | Online courses and certifications | best online courses (9,000); best certifications (5,000); best online certifications (4,000) | 18,000 | $35 | $630,000 | $4,725 | 59 | 4.8 | 6 | 2.5 | 4.8 | **4.41** |
+| 65 | Air fryers, countertop ovens, pizza ovens | best air fryer (17,800); best toaster oven (22,200); best pizza oven (14,800) | 54,800 | $15 | $822,000 | $6,165 | 55 | 4.1 | 4 | 5.0 | 4.0 | **4.30** |
+| 66 | Coffee makers, kettles, drip brewers | best coffee maker (33,100); best drip coffee maker (12,100); best electric kettle (9,900) | 55,100 | $10 | $551,000 | $4,132 | 60 | 3.9 | 2 | 5.0 | 4.8 | **4.10** |
+| 67 | Smart thermostats and hubs | best smart thermostat (22,200); best thermostat (6,600); best smart home hub (5,400) | 34,200 | $11 | $376,200 | $2,822 | 66 | 3.0 | 4 | 3.5 | 6.0 | **4.04** |
+| 68 | Electric toothbrushes, oral care, shavers | best electric toothbrush (40,000); best electric razor (14,000); best electric shaver (9,000) | 63,000 | $8 | $504,000 | $3,780 | 62 | 2.9 | 2 | 4.0 | 6.8 | **4.02** |
 
-## Top 10 by each dimension
+## Top 15 by realistic monthly commission pool
 
-**Affiliate economics (A):** Whole-house water filtration / softeners (8.9); Massage chairs (8.9); Hot tubs, saunas, cold plunges (8.6); Home battery + DIY solar kits (7.8); Engagement rings and fine jewelry (7.7); Ductless mini-split heat pumps (7.1); Pool equipment (robots, pumps, heaters) (7.0); Espresso machines and grinders (6.9); Sewing, embroidery, cutting machines (6.8); Home fitness equipment (6.8)
+| Pool rank | Niche | Volume/mo | $/sale | Realistic pool/mo | Overall rank |
+|---|---|---|---|---|---|
+| 1 | Mattresses and bedding | 202,000 | $140 | $212,100 | 21 |
+| 2 | Credit cards, insurance, loans, solar leads | 157,000 | $120 | $141,300 | 16 |
+| 3 | Laptops and desktops | 269,500 | $40 | $80,850 | 3 |
+| 4 | Hosting, VPN, password managers | 202,000 | $50 | $75,750 | 25 |
+| 5 | Hot tubs, saunas, cold plunges | 30,000 | $250 | $56,250 | 5 |
+| 6 | Espresso machines and grinders | 90,800 | $80 | $54,480 | 23 |
+| 7 | Whole-house water filtration / softeners | 26,500 | $225 | $44,719 | 7 |
+| 8 | Massage chairs | 24,300 | $225 | $41,006 | 15 |
+| 9 | Smartphones and tablets | 154,000 | $30 | $34,650 | 34 |
+| 10 | Home fitness equipment | 58,900 | $75 | $33,131 | 31 |
+| 11 | Projectors and home theater | 72,400 | $60 | $32,580 | 36 |
+| 12 | Office chairs and standing desks | 92,000 | $45 | $31,050 | 12 |
+| 13 | OTC hearing aids | 42,900 | $90 | $28,958 | 28 |
+| 14 | Robot vacuums and mops | 95,400 | $40 | $28,620 | 42 |
+| 15 | Refrigerators | 51,100 | $70 | $26,828 | 2 |
 
-**Revenue-stream breadth (B):** Mobility and medical alert (lead-gen) (10.0); Engagement rings and fine jewelry (8.0); Ductless mini-split heat pumps (8.0); Refrigerators (8.0); Washing machines and dryers (8.0); Car tires and wheels (8.0); Hot tubs, saunas, cold plunges (8.0); Pool equipment (robots, pumps, heaters) (8.0); Whole-house water filtration / softeners (8.0); E-bikes (8.0)
+## Home systems cluster totals
 
-**SEO potential (C):** Dehumidifiers and air purifiers (8.0); Printers and home office (8.0); Air fryers, countertop ovens, pizza ovens (8.0); Portable power stations / solar generators (7.5); Espresso machines and grinders (7.5); Engagement rings and fine jewelry (7.0); Laptops and desktops (7.0); Mattresses and bedding (7.0); Televisions (7.0); Headphones, earbuds, speakers, soundbars (7.0)
-
-**Public data (D):** Engagement rings and fine jewelry (10.0); Ductless mini-split heat pumps (10.0); Refrigerators (10.0); Washing machines and dryers (10.0); Dehumidifiers and air purifiers (10.0); Laptops and desktops (10.0); Car tires and wheels (10.0); Dishwashers (10.0); Water heaters (tankless, heat pump) (10.0); Monitors (10.0)
-
-**Affiliate-first overall (Alt):** Engagement rings and fine jewelry (8.1); Ductless mini-split heat pumps (7.4); Hot tubs, saunas, cold plunges (7.4); Whole-house water filtration / softeners (7.4); Massage chairs (7.2); Home battery + DIY solar kits (7.1); Refrigerators (7.0); Pool equipment (robots, pumps, heaters) (7.0); Car tires and wheels (6.9); Washing machines and dryers (6.7)
-
-
-## Reading the table
-
-Cluster analysis matters more than any single row, because one site needs a coherent niche. Of the top 25,
-twelve belong to one buyer and one data spine: mini-split heat pumps, refrigerators, washers and dryers,
-dehumidifiers and air purifiers, pool equipment, whole-house water treatment, portable power stations, home
-battery and DIY solar, dishwashers, water heaters, EV chargers, and generators. All sit on ENERGY STAR, DOE,
-AHRI, AHAM, NSF, or UL certification data, all monetize through Impact, CJ, or in-house brand programs, and
-most add installer lead-gen as a second stream. That cluster is the "home systems" niche recommended earlier.
-
-Rows that outrank cluster members individually are different businesses: engagement rings (highest $/sale
-and a perfect GIA-graded spec database, but fraud reversals, shrinking lab-grown AOV, Signet-owned merchants
-capping payouts, and Rare Carat already running the data model); hot tubs, saunas, and massage chairs (very
-high $/sale, weak public data, dealer-polluted results; fit as wellness extensions later); laptops, tires,
-and office chairs (strong data, mediocre payouts, strong incumbents); credit cards and mattresses (high
-bounties, closed or dominated, hit hardest by the 2025 and 2026 updates).
-
-Recommended launch order by score and data readiness: washers (pipeline proof), mini-split heat pumps,
-refrigerators, portable power stations, dehumidifiers and air purifiers, dishwashers, pool equipment,
-whole-house water treatment, water heaters, EV chargers, DIY solar, generators. Hot tubs, saunas, and
-massage chairs in year two. Engagement rings as a candidate second brand.
-
-Volume caveat: the volume column is the primary head term only. Categories with several head terms (for
-example "best heat pump" plus "best mini split", or "best tires" plus thousands of per-vehicle queries) have
-materially more demand than the single figure shows. Pull real numbers from Ahrefs or Semrush before
-committing.
+Members: portable power stations, DIY solar and batteries, mini-split heat pumps, water heaters, whole-house water treatment, dehumidifiers and air purifiers, EV chargers, generators, washers and dryers, refrigerators, dishwashers, ranges and induction, pool equipment.
+Combined three-term volume: 548,100 searches per month. Combined realistic pool: $227,294 per month across all sites. Ranked members: Ductless mini-split heat pumps (#1), Refrigerators (#2), Pool equipment (robots, pumps, heaters) (#6), Whole-house water filtration / softeners (#7), Washing machines and dryers (#8), Dehumidifiers and air purifiers (#9), Home battery + DIY solar kits (#11), Water heaters (tankless, heat pump) (#14), Home EV chargers (#17), Portable power stations / solar generators (#18), Dishwashers (#19), Ranges, wall ovens, induction cooktops (#32), Standby and portable generators (#33).

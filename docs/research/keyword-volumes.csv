@@ -1,0 +1,205 @@
+niche_id|niche|term|us_monthly_volume|source
+A1|Portable power stations / solar generators|best portable power station|22000|est
+A1|Portable power stations / solar generators|best solar generator|14800|est
+A1|Portable power stations / solar generators|best power station|6600|est
+A2|Home battery + DIY solar kits|best solar battery|6600|est
+A2|Home battery + DIY solar kits|best home battery backup|4400|est
+A2|Home battery + DIY solar kits|best solar panels for home|9900|est
+A3|Ductless mini-split heat pumps|best mini split|9900|est
+A3|Ductless mini-split heat pumps|best ductless mini split|4400|est
+A3|Ductless mini-split heat pumps|best mini split heat pump|3600|est
+A4|Water heaters (tankless, heat pump)|best tankless water heater|14800|est
+A4|Water heaters (tankless, heat pump)|best water heater|12100|est
+A4|Water heaters (tankless, heat pump)|best heat pump water heater|4400|est
+A5|Whole-house water filtration / softeners|best water softener|14800|est (Wordtracker snippet said 500; not a Google index, overridden)
+A5|Whole-house water filtration / softeners|best water softener system|3600|est
+A5|Whole-house water filtration / softeners|best whole house water filter|8100|est
+A6|Window / portable air conditioners|best portable air conditioner|27100|est
+A6|Window / portable air conditioners|best window air conditioner|18100|est
+A6|Window / portable air conditioners|best window ac unit|9900|est
+A7|Dehumidifiers and air purifiers|best air purifier|74000|est
+A7|Dehumidifiers and air purifiers|best dehumidifier|33100|est
+A7|Dehumidifiers and air purifiers|best air purifier for allergies|9900|est
+A8|Smart thermostats and hubs|best smart thermostat|22200|est
+A8|Smart thermostats and hubs|best thermostat|6600|est
+A8|Smart thermostats and hubs|best smart home hub|5400|est
+A9|Home EV chargers|best ev charger|9900|est
+A9|Home EV chargers|best home ev charger|6600|est
+A9|Home EV chargers|best level 2 ev charger|4400|est
+A10|Standby and portable generators|best portable generator|14800|est
+A10|Standby and portable generators|best generator|12100|est
+A10|Standby and portable generators|best home generator|8100|est
+A11|Central AC / furnaces (installed)|best ac unit|6600|est
+A11|Central AC / furnaces (installed)|best furnace brands|4400|est
+A11|Central AC / furnaces (installed)|best central air conditioner|3600|est
+A12|Ceiling, attic, whole-house fans|best ceiling fan|14800|est
+A12|Ceiling, attic, whole-house fans|best attic fan|4400|est
+A12|Ceiling, attic, whole-house fans|best whole house fan|2400|est
+A13|Home energy monitors and smart panels|best home energy monitor|1900|est
+A13|Home energy monitors and smart panels|best energy monitor|880|est
+A13|Home energy monitors and smart panels|best smart electrical panel|720|est
+B1|Washing machines and dryers|best washing machine|40500|est
+B1|Washing machines and dryers|best washer and dryer|22200|est
+B1|Washing machines and dryers|best dryer|12100|est
+B2|Refrigerators|best refrigerator|33100|est
+B2|Refrigerators|best refrigerator brands|9900|est
+B2|Refrigerators|best french door refrigerator|8100|est
+B3|Dishwashers|best dishwasher|49500|est
+B3|Dishwashers|best dishwasher brands|6600|est
+B3|Dishwashers|best bosch dishwasher|3600|est
+B4|Ranges, wall ovens, induction cooktops|best gas range|9900|est
+B4|Ranges, wall ovens, induction cooktops|best induction cooktop|8100|est
+B4|Ranges, wall ovens, induction cooktops|best induction range|6600|est
+B5|Range hoods and microwaves|best microwave|22200|est
+B5|Range hoods and microwaves|best over the range microwave|8100|est
+B5|Range hoods and microwaves|best range hood|5400|est
+B6|Robot vacuums and mops|best robot vacuum|74000|est
+B6|Robot vacuums and mops|best robot vacuum and mop|14800|est
+B6|Robot vacuums and mops|best roomba|6600|est
+B7|Cordless stick vacuums and carpet cleaners|best cordless vacuum|49500|est
+B7|Cordless stick vacuums and carpet cleaners|best vacuum|40500|est
+B7|Cordless stick vacuums and carpet cleaners|best carpet cleaner|27100|est
+B8|Espresso machines and grinders|best espresso machine|60500|est
+B8|Espresso machines and grinders|best coffee grinder|22200|est
+B8|Espresso machines and grinders|best home espresso machine|8100|est
+B9|Coffee makers, kettles, drip brewers|best coffee maker|33100|verified: Ahrefs via Backlinko snippet
+B9|Coffee makers, kettles, drip brewers|best drip coffee maker|12100|est
+B9|Coffee makers, kettles, drip brewers|best electric kettle|9900|est
+B10|Blenders, stand mixers, food processors|best blender|40500|est
+B10|Blenders, stand mixers, food processors|best food processor|22200|est
+B10|Blenders, stand mixers, food processors|best stand mixer|14800|est
+B11|Air fryers, countertop ovens, pizza ovens|best air fryer|17800|verified: KeySearch/Sistrix snippet
+B11|Air fryers, countertop ovens, pizza ovens|best toaster oven|22200|est
+B11|Air fryers, countertop ovens, pizza ovens|best pizza oven|14800|est
+B12|Grills, smokers, pellet grills|best gas grill|22200|est
+B12|Grills, smokers, pellet grills|best smoker|18100|est
+B12|Grills, smokers, pellet grills|best pellet grill|14800|est
+B13|Sewing, embroidery, cutting machines|best sewing machine|27100|est
+B13|Sewing, embroidery, cutting machines|best embroidery machine|6600|est
+B13|Sewing, embroidery, cutting machines|best cricut machine|4400|est
+C1|E-bikes|best electric bike|29900|verified: streetrides.ca (Google Ads/Keywords Everywhere)
+C1|E-bikes|best electric bikes|9900|est
+C1|E-bikes|best ebike|8100|est
+C2|E-scooters and e-mopeds|best electric scooter|27000|est
+C2|E-scooters and e-mopeds|best electric scooter for adults|6600|est
+C2|E-scooters and e-mopeds|best electric scooters|5400|est
+C3|Robot and battery lawn mowers|best robot lawn mower|14000|est
+C3|Robot and battery lawn mowers|best battery lawn mower|6600|est
+C3|Robot and battery lawn mowers|best robotic lawn mower|3600|est
+C4|Pressure washers, snow blowers, chainsaws|best pressure washer|33000|est
+C4|Pressure washers, snow blowers, chainsaws|best snow blower|18000|est
+C4|Pressure washers, snow blowers, chainsaws|best chainsaw|14000|est
+C5|Cordless power tool platforms|best cordless drill|18000|est
+C5|Cordless power tool platforms|best impact driver|9900|est
+C5|Cordless power tool platforms|best power tool brand|6600|est
+C6|Hot tubs, saunas, cold plunges|best cold plunge|12000|est
+C6|Hot tubs, saunas, cold plunges|best hot tub|9900|est
+C6|Hot tubs, saunas, cold plunges|best infrared sauna|8100|est
+C7|Pool equipment (robots, pumps, heaters)|best robotic pool cleaner|14000|est
+C7|Pool equipment (robots, pumps, heaters)|best pool vacuum|6600|est
+C7|Pool equipment (robots, pumps, heaters)|best pool heater|4400|est
+C8|Car tires and wheels|best all season tires|27000|est
+C8|Car tires and wheels|best tire brands|14000|est
+C8|Car tires and wheels|best tires|12000|est
+C9|Dash cams, car audio, EV accessories|best dash cam|40500|est
+C9|Dash cams, car audio, EV accessories|best car speakers|6600|est
+C9|Dash cams, car audio, EV accessories|best car stereo|5400|est
+C10|Massage chairs|best massage chair|18000|est
+C10|Massage chairs|best massage chairs|4400|est
+C10|Massage chairs|best massage chair under 2000|1900|est
+C11|Home fitness equipment|best treadmill|27000|est
+C11|Home fitness equipment|best rowing machine|22000|est
+C11|Home fitness equipment|best home gym|9900|est
+C12|Golf equipment and launch monitors|best golf drivers|22000|est
+C12|Golf equipment and launch monitors|best golf balls|18000|est
+C12|Golf equipment and launch monitors|best launch monitor|9900|est
+C13|Kayaks, SUPs, camping, coolers|best coolers|22000|est
+C13|Kayaks, SUPs, camping, coolers|best kayak|9900|est
+C13|Kayaks, SUPs, camping, coolers|best paddle board|9900|est
+C14|Drones and action cameras|best drone|27000|est
+C14|Drones and action cameras|best action camera|18000|est
+C14|Drones and action cameras|best drones|12000|est
+D1|Televisions|best tv|90000|est
+D1|Televisions|best 65 inch tv|40500|est
+D1|Televisions|best tvs|27000|est
+D2|Laptops and desktops|best laptop|135000|est
+D2|Laptops and desktops|best gaming laptop|74000|est
+D2|Laptops and desktops|best laptops|60500|est
+D3|Monitors|best gaming monitor|60500|est
+D3|Monitors|best monitor|27000|est
+D3|Monitors|best ultrawide monitor|9900|est
+D4|Headphones, earbuds, speakers, soundbars|best headphones|74000|est
+D4|Headphones, earbuds, speakers, soundbars|best wireless earbuds|74000|est
+D4|Headphones, earbuds, speakers, soundbars|best soundbar|60500|est
+D5|Cameras and lenses|best camera|27000|est
+D5|Cameras and lenses|best mirrorless camera|18000|est
+D5|Cameras and lenses|best camera for beginners|12000|est
+D6|3D printers and filament|best 3d printer|60000|verified: shelftrend.com (90-120k across US/UK/CA/AU, US share est.)
+D6|3D printers and filament|best 3d printers|8100|est
+D6|3D printers and filament|best budget 3d printer|6600|est
+D7|Mesh Wi-Fi and networking|best router|40500|est
+D7|Mesh Wi-Fi and networking|best wifi router|33000|est
+D7|Mesh Wi-Fi and networking|best mesh wifi|33000|est
+D8|NAS and home storage|best external hard drive|18000|est
+D8|NAS and home storage|best nas|12000|est
+D8|NAS and home storage|best nas for home|4400|est
+D9|Gaming hardware (consoles, GPUs, PCs)|best gaming pc|40500|est
+D9|Gaming hardware (consoles, GPUs, PCs)|best graphics card|22000|est
+D9|Gaming hardware (consoles, GPUs, PCs)|best gpu|22000|est
+D10|Smartphones and tablets|best phone|60500|est
+D10|Smartphones and tablets|best tablet|60500|est
+D10|Smartphones and tablets|best android phone|33000|est
+D11|Smart home security (cameras, alarms)|best home security system|40500|est
+D11|Smart home security (cameras, alarms)|best home security camera|27000|est
+D11|Smart home security (cameras, alarms)|best security cameras|22000|est
+D12|Projectors and home theater|best projector|49500|est
+D12|Projectors and home theater|best 4k projector|14800|est
+D12|Projectors and home theater|best home theater projector|8100|est
+D13|Printers and home office|best printer|60500|est
+D13|Printers and home office|best home printer|40500|est
+D13|Printers and home office|best all in one printer|22000|est
+D14|Keyboards, mice, docks, peripherals|best gaming mouse|40500|est
+D14|Keyboards, mice, docks, peripherals|best mechanical keyboard|27000|est
+D14|Keyboards, mice, docks, peripherals|best wireless mouse|18000|est
+E1|Mattresses and bedding|best mattress|135000|est
+E1|Mattresses and bedding|best mattress for side sleepers|40000|est
+E1|Mattresses and bedding|best mattress for back pain|27000|est
+E2|Office chairs and standing desks|best office chair|60000|est
+E2|Office chairs and standing desks|best standing desk|18000|est
+E2|Office chairs and standing desks|best ergonomic office chair|14000|est
+E3|Baby gear (car seats, strollers, monitors)|best baby monitor|22000|est
+E3|Baby gear (car seats, strollers, monitors)|best stroller|18000|est
+E3|Baby gear (car seats, strollers, monitors)|best car seat|14000|est
+E4|OTC hearing aids|best hearing aids|27000|est
+E4|OTC hearing aids|best otc hearing aids|9900|est
+E4|OTC hearing aids|best over the counter hearing aids|6000|est
+E5|Electric toothbrushes, oral care, shavers|best electric toothbrush|40000|est
+E5|Electric toothbrushes, oral care, shavers|best electric razor|14000|est
+E5|Electric toothbrushes, oral care, shavers|best electric shaver|9000|est
+E6|Mobility and medical alert (lead-gen)|best medical alert systems|9000|est
+E6|Mobility and medical alert (lead-gen)|best mobility scooter|5000|est
+E6|Mobility and medical alert (lead-gen)|best walker for seniors|4000|est
+E7|Pet tech (litter boxes, GPS collars)|best automatic litter box|12000|est
+E7|Pet tech (litter boxes, GPS collars)|best self cleaning litter box|8000|est
+E7|Pet tech (litter boxes, GPS collars)|best gps dog collar|5000|est
+E8|Musical instruments|best digital piano|9000|est
+E8|Musical instruments|best audio interface|9000|est
+E8|Musical instruments|best acoustic guitar|8000|est
+E9|Watches, luggage, travel gear|best carry on luggage|18000|est
+E9|Watches, luggage, travel gear|best luggage|14000|est
+E9|Watches, luggage, travel gear|best travel backpack|12000|est
+E10|Engagement rings and fine jewelry|best place to buy engagement ring|6000|est
+E10|Engagement rings and fine jewelry|best lab grown diamonds|4000|est
+E10|Engagement rings and fine jewelry|best engagement rings|3600|est
+E11|Safes, security hardware, smart locks|best smart lock|14000|est
+E11|Safes, security hardware, smart locks|best gun safe|6000|est
+E11|Safes, security hardware, smart locks|best home safe|5000|est
+E12|Hosting, VPN, password managers|best vpn|135000|est
+E12|Hosting, VPN, password managers|best password manager|40000|est
+E12|Hosting, VPN, password managers|best web hosting|27000|est
+E13|Credit cards, insurance, loans, solar leads|best credit cards|90000|est
+E13|Credit cards, insurance, loans, solar leads|best car insurance|40000|est
+E13|Credit cards, insurance, loans, solar leads|best personal loans|27000|est
+E14|Online courses and certifications|best online courses|9000|est
+E14|Online courses and certifications|best certifications|5000|est
+E14|Online courses and certifications|best online certifications|4000|est
