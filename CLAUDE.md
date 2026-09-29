@@ -24,19 +24,23 @@ and anything that does not strengthen one of them is suspect:
    the reasoning shown.
 
 Rules that follow from the principle:
-- A model page is indexable only when it holds at least five verified entries (site reviews or consented
-  owner reports from surveys) plus spec and warranty data, and passes the completeness gate. Everything
-  else is served with noindex. Seed with consented survey data before indexing; never index empty pages.
+- A model page is indexable only when it holds a complete data card (specs, warranty terms, price) and
+  either a sentiment summary from at least 20 collected observations across at least 2 sources, or at least
+  5 native reviews, and passes the completeness gate. Everything else is served with noindex. Never index
+  empty pages.
 - Run it as a review platform: verification, moderation, a published review policy, brand responses,
   disputes, no sentiment-conditioned incentives, no suppression of negatives, DMCA agent registered.
 - Every generated sentence must trace to a stored fact or observation with provenance. No claim without a
   source row.
-- Never store or republish third-party review text; store paraphrased observations plus URL pointers.
+- Third-party reviews (collected via managed providers) feed the review-intelligence layer only: paraphrased
+  observations, excerpts of at most 25 words, source pointers, raw text purged within 30 days. They are
+  never inserted into native reviews, never counted in AggregateRating, never republished in full. See
+  `docs/12-seeding-decision.md`. Amazon collection and an Amazon Associates account are mutually exclusive.
 - Never mark up AggregateRating from third-party ratings. Editorial scores go in Review with a named author.
 - Real byline (the operator), a methodology page, an AI-assistance disclosure on generated sections, and
   affiliate disclosure adjacent to links with rel="sponsored".
 - Expand the index in measured batches driven by Search Console evidence, never by page-generation capacity.
-- No scraped Reddit or Amazon reviews, no Gemini grounding for stored data, no bought links, no aged domain.
+- No Reddit scraping (links only), no Gemini grounding for stored data, no bought links, no aged domain.
 
 ## Operating constraints
 - One operator, no-code or low-code first, zero spend until unavoidable, everything in Postgres with
