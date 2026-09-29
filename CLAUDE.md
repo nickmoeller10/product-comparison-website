@@ -24,10 +24,16 @@ and anything that does not strengthen one of them is suspect:
    the reasoning shown.
 
 Rules that follow from the principle:
-- A model page is indexable only when it holds a complete data card (specs, warranty terms, price) and
-  either a sentiment summary from at least 20 collected observations across at least 2 sources, or at least
-  5 native reviews, and passes the completeness gate. Everything else is served with noindex. Never index
-  empty pages.
+- One index rule, implemented only by `index_gate` (master-plan.md section 8.2) and stored only in
+  `pages.indexable`: a model page is indexable when (a) the data card is complete (every required attribute
+  canonical, warranty years and trial nights parsed, a price point within 30 days), (b) an owned signal
+  exists (30 or more days of first-party price history, or 3 or more published native reviews), (c) evidence
+  exists (20 or more live observations across 2 or more sources, or 5 or more published native reviews), and
+  (d) the unique-content ratio is 0.5 or higher. Everything else is served with noindex. Never index empty
+  pages. Expand the index in evidence-driven batches; there is no URL-per-month target.
+- Gated content is never server-rendered into cached pages: indexable routes render the visitor view only,
+  gated fragments are client-fetched through authenticated route handlers, and CI fails on any gated marker
+  in an anonymous fetch.
 - Run it as a review platform: verification, moderation, a published review policy, brand responses,
   disputes, no sentiment-conditioned incentives, no suppression of negatives, DMCA agent registered.
 - Every generated sentence must trace to a stored fact or observation with provenance. No claim without a
@@ -36,11 +42,20 @@ Rules that follow from the principle:
   observations, excerpts of at most 25 words, source pointers, raw text purged within 30 days. They are
   never inserted into native reviews, never counted in AggregateRating, never republished in full. See
   `docs/12-seeding-decision.md`. Amazon collection and an Amazon Associates account are mutually exclusive.
-- Never mark up AggregateRating from third-party ratings. Editorial scores go in Review with a named author.
+- AggregateRating only from published native reviews (unweighted mean and count, excluding
+  material-connection reviews, shown at 5 or more). Editorial scores go in Review with the operator as the
+  named Person author and the site as publisher; pros and cons only from criteria with native evidence.
+- YouTube-derived text (titles, comments, author names) is never kept past 30 days; only ids and counts
+  persist. Receipts and law labels are deleted 30 days after verification. Photos with people are rejected.
 - Real byline (the operator), a methodology page, an AI-assistance disclosure on generated sections, and
   affiliate disclosure adjacent to links with rel="sponsored".
-- Expand the index in measured batches driven by Search Console evidence, never by page-generation capacity.
-- No Reddit scraping (links only), no Gemini grounding for stored data, no bought links, no aged domain.
+- No moderation or dispute action keys on rating value; dispute grounds are enumerated; brand responses are
+  plain text, moderated before publication; brand badges are free with optional nofollow links, never paid
+  or required.
+- No Reddit scraping (links only), no Gemini grounding for stored data, no bought or required links, no aged
+  domain, no paid placement in rankings.
+- Source of truth: `master-plan.md` at the repository root. Where a numbered document in `docs/` differs,
+  the master plan wins.
 
 ## Operating constraints
 - One operator, no-code or low-code first, zero spend until unavoidable, everything in Postgres with
